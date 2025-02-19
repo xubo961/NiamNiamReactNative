@@ -1,10 +1,11 @@
 import {StyleSheet} from "react-native";
+import {AppColors} from "../../theme/AppTheme";
 
 const styles = StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
-        backgroundColor: '#FEFBF0',
+        backgroundColor: AppColors.background,
     },
 
     imageContainer: {
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
 
     text: {
         fontSize: 16,
-    }
+    },
 
 })
 
