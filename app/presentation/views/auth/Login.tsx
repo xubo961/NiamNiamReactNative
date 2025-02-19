@@ -6,7 +6,7 @@ export function LoginScreen() {
 
     return (
         <View>
-                <Text>Food App</Text>
+            <Image source={require("../../../../assets/logoniamniam.png")} />
         </View>
     )
 }
