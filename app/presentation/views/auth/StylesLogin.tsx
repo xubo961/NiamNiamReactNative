@@ -1,55 +1,69 @@
-import { StyleSheet } from "react-native";
-import { AppColors } from "../../theme/AppTheme"; // Ajusta si tienes tu propio tema
+import {StyleSheet} from "react-native";
+import {AppColors} from "../../theme/AppTheme";
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: AppColors.background
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: AppColors.background,
     },
-
-    imageContainer: {
-        alignSelf: 'center',
-        marginTop: 130,
+    logo: {
+        width: 120,
+        height: 120,
+        marginBottom: 20,
     },
-
-    image: {
-        width: 125,
-        height: 125,
+    card: {
+        backgroundColor: AppColors.backgroundPopUp,
+        paddingHorizontal: 30,
+        paddingVertical: 40,
+        borderRadius: 20,
+        width: "85%",
+        height: "60%",
+        alignItems: "center",
+        elevation: 5,
+        marginTop: 50,
     },
-
-    button: {
-        marginTop: 40
+    toggleContainer: {
+        flexDirection: "row",
+        marginBottom: 25,
+        borderRadius: 30,
+        backgroundColor: AppColors.grisClaro,
+        overflow: "hidden",
+        width: "80%",
     },
-
-    textContainer: {
-        alignSelf: 'center',
-        paddingTop: 19
+    toggleButton: {
+        flex: 1,
+        paddingVertical: 12,
+        alignItems: "center",
+        borderRadius: 30,
     },
-
-    text: {
+    activeButton: {
+        backgroundColor: AppColors.rojo,
+    },
+    toggleText: {
+        fontSize: 16,
+        color: AppColors.textWhite,
+    },
+    activeText: {
+        color: AppColors.textWhite,
+        fontWeight: "bold",
+    },
+    loginText: {
+        color: "#FFFFFF",
+        fontWeight: "bold",
         fontSize: 16,
     },
-
-    formContainer: {
-        width: '90%',
-        backgroundColor: AppColors.backgroundPopUp,
-        paddingVertical: 120,
-        paddingHorizontal: 15,
-        marginHorizontal: "auto",
-        marginTop: 80,
-        borderRadius: 25,
+    forgotPassword: {
+        marginTop: 15,
+        color: "#777",
+        fontSize: 14,
     },
-    formTittle: {
-        fontSize: 18,
-        fontWeight: "bold",
-        marginBottom: 15,
-        borderBottomWidth: 1,
-        paddingBottom: 9,
-        color: AppColors.amarillo,
-        borderBottomColor: AppColors.amarillo,
-    },
-
+    formInput: {
+        width: '100%',
+        gap: 20,
+        marginTop: 40,
+    }
 });
 
 export default styles;
