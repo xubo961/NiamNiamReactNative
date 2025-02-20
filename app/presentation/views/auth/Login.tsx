@@ -16,18 +16,17 @@ export function LoginScreen({navigation} : PropsStackNavigation) {
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
-                <Image style={styles.image} source={require("../../../../assets/logoniamniam.png")}></Image>
+                <Image style={styles.image} source={require("../../../../assets/logoniamniam.png")} />
             </View>
 
             <View style={styles.formContainer}>
-
                 <FormInputInlineWithIcon
                     image={require("../../../../assets/logoniamniam.png")}
                     placeholder={"E-Mail"}
                     keyboardType="email-address"
                     secureTextEntry={false}
                     onPressFormInterface={(text: string) => onChangeLogin('email', text)}
-                ></FormInputInlineWithIcon>
+                />
 
                 <FormInputInlineWithIcon
                     image={require("../../../../assets/logoniamniam.png")}
@@ -35,25 +34,25 @@ export function LoginScreen({navigation} : PropsStackNavigation) {
                     keyboardType="default"
                     secureTextEntry={true}
                     onPressFormInterface={(text:string) => onChangeLogin('password', text)}
-                ></FormInputInlineWithIcon>
+                />
 
                 <View>
                     <RoundedButton text={"Log In"} onPressFromInterface={() => {
-                        // navigation.navigate("LoginScreen")
-                    }}></RoundedButton>
+                         navigation.navigate("LoginScreen")
+                    }} />
                 </View>
 
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>ForgotPassword?</Text>
                 </View>
 
-                {/*<View style={{marginTop: 30}}>*/}
-                {/*    <RoundedButton text={"Registrar"} onPressFromInterface={() => {*/}
-                {/*        navigation.navigate("RegisterScreen")*/}
-                {/*    }}></RoundedButton>*/}
-                {/*</View>*/}
+                <View style={{marginTop: 30}}>
+                    <RoundedButton text={"Registrar"} onPressFromInterface={() => {
+                        navigation.navigate("RegisterScreen")
+                    }} />
+                </View>
             </View>
-
         </View>
-    );
+);
+
 }
