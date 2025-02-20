@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     formInput: {
         width: '100%',
         gap: 20,
-        marginTop: 40,
+        marginTop: 5,
     }
 });
 

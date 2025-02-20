@@ -11,9 +11,8 @@ export function LoginScreen({navigation}: PropsStackNavigation) {
     const [isLogin, setIsLogin] = useState(true);
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container]}>
             <Image style={styles.logo} source={require("../../../../assets/logoniamniam.png")}/>
-
             <View style={styles.card}>
                 <View style={styles.toggleContainer}>
                     <TouchableOpacity
@@ -24,7 +23,7 @@ export function LoginScreen({navigation}: PropsStackNavigation) {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.toggleButton, !isLogin && styles.activeButton]}
-                        onPress={() => setIsLogin(false)}
+                        onPress={() => navigation.navigate("RegisterScreen")}
                     >
                         <Text style={[styles.toggleText, !isLogin && styles.activeText]}>Sign Up</Text>
                     </TouchableOpacity>
@@ -48,8 +47,9 @@ export function LoginScreen({navigation}: PropsStackNavigation) {
                     />
                 </View>
 
-                <View style={{ width: '100%', marginTop: "auto" }}>
-                    <RoundedButton text={"Log In"} onPressFromInterface={() => {}} />
+                <View style={{width: '100%', marginTop: "auto"}}>
+                    <RoundedButton text={"Log In"} onPressFromInterface={() => {
+                    }}/>
                 </View>
                 <Text style={styles.forgotPassword}>Forgot password?</Text>
 
@@ -57,7 +57,6 @@ export function LoginScreen({navigation}: PropsStackNavigation) {
         </View>
     );
 }
-
 
 
 //Esto es otra prueba jejeje :D
@@ -94,7 +93,6 @@ export function LoginScreen({navigation}: PropsStackNavigation) {
 //                 </View>
 //
 //                 <View style={styles.formInput}>
-//                     {/* Mostrar formulario de Login */}
 //                     {isLogin ? (
 //                         <>
 //                             <FormInputInlineWithIcon
@@ -115,13 +113,13 @@ export function LoginScreen({navigation}: PropsStackNavigation) {
 //
 //                             <View style={{ width: '100%', marginTop: "auto" }}>
 //                                 <RoundedButton text={"Log In"} onPressFromInterface={() => {}} />
+//                                 <Text style={styles.forgotPassword}>Forgot password?</Text>
 //                             </View>
 //
-//                             <Text style={styles.forgotPassword}>Forgot password?</Text>
+//
 //                         </>
 //                     ) : (
 //                         <>
-//                             {/* Mostrar formulario de Registro */}
 //                             <FormInputInlineWithIcon
 //                                 image={require("../../../../assets/logoniamniam.png")}
 //                                 placeholder={"Full Name"}
@@ -164,4 +162,4 @@ export function LoginScreen({navigation}: PropsStackNavigation) {
 //         </View>
 //     );
 // }
-
+//

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 
     textContainer: {
         alignSelf: 'center',
-        paddingTop: 19
+        paddingTop: 19,
     },
 
     text: {

@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
     },
     buttonForm: {
         backgroundColor: AppColors.rojo,
-        paddingVertical: 15,
-        paddingHorizontal: 49,
+        paddingVertical: 9,
+        paddingHorizontal: 30,
         borderRadius: 50,
         width: "100%",
         alignItems: "center",

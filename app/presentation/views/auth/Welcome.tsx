@@ -1,7 +1,8 @@
-import {Button, Image, Text, View} from "react-native";
+import {Button, Image, Text, TouchableOpacity, View} from "react-native";
 import styles from "./StylesWelcome";
 import {RoundedButton} from "../../components/RoundedButton";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
+import {AppColors} from "../../theme/AppTheme";
 
 export function WelcomeScreen({navigation} : PropsStackNavigation) {
     return (
@@ -17,8 +18,11 @@ export function WelcomeScreen({navigation} : PropsStackNavigation) {
             </View>
 
             <View style={styles.textContainer}>
-                <Text style={styles.text}>
-                    Dont have an account? Sign Up
+                <Text>
+                    Don't have an account?{' '}
+                    <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
+                        <Text style={{ color: AppColors.rojo }}>Sign Up</Text>
+                    </TouchableOpacity>
                 </Text>
             </View>
 

@@ -1,14 +1,14 @@
 import React, {useState} from "react";
 import {Image, Text, TouchableOpacity, View} from "react-native";
-import styles from "./StylesLogin";
 import {FormInputInlineWithIcon} from "../../components/TextInput";
 import {RoundedButton} from "../../components/RoundedButton";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
 import viewModel from "./ViewModel";
+import styles from "./StylesRegister";
 
 export function RegisterScreen({navigation}: PropsStackNavigation) {
     const {onChangeLogin} = viewModel.LoginViewModel();
-    const [isLogin, setIsLogin] = useState(true);
+    const [isLogin, setIsLogin] = useState(false);
 
     return (
         <View style={styles.container}>
@@ -18,7 +18,7 @@ export function RegisterScreen({navigation}: PropsStackNavigation) {
                 <View style={styles.toggleContainer}>
                     <TouchableOpacity
                         style={[styles.toggleButton, isLogin && styles.activeButton]}
-                        onPress={() => navigation.navigate("LoginScreen")} // Agregamos la navegación
+                        onPress={() => navigation.navigate("LoginScreen")}
                     >
                         <Text style={[styles.toggleText, isLogin && styles.activeText]}>Log in</Text>
                     </TouchableOpacity>
@@ -34,6 +34,14 @@ export function RegisterScreen({navigation}: PropsStackNavigation) {
                 <View style={styles.formInput}>
                     <FormInputInlineWithIcon
                         image={require("../../../../assets/logoniamniam.png")}
+                        placeholder={"Name"}
+                        keyboardType="default"
+                        secureTextEntry={false}
+                        onPressFormInterface={(text: string) => onChangeLogin('name', text)}
+                    />
+
+                    <FormInputInlineWithIcon
+                        image={require("../../../../assets/logoniamniam.png")}
                         placeholder={"E-Mail"}
                         keyboardType="email-address"
                         secureTextEntry={false}
@@ -47,13 +55,22 @@ export function RegisterScreen({navigation}: PropsStackNavigation) {
                         secureTextEntry={true}
                         onPressFormInterface={(text: string) => onChangeLogin('password', text)}
                     />
+
+                    <FormInputInlineWithIcon
+                        image={require("../../../../assets/logoniamniam.png")}
+                        placeholder={"Repeat Password"}
+                        keyboardType="default"
+                        secureTextEntry={true}
+                        onPressFormInterface={(text: string) => onChangeLogin('repeatPassword', text)}
+                    />
+
+
                 </View>
 
-                <View style={{ width: '100%', marginTop: "auto" }}>
-                    <RoundedButton text={"Log In"} onPressFromInterface={() => {}} />
+                <View style={{width: '100%', marginTop: "auto"}}>
+                    <RoundedButton text={"Register"} onPressFromInterface={() => {
+                    }}/>
                 </View>
-                <Text style={styles.forgotPassword}>Forgot password?</Text>
-
             </View>
         </View>
     );
