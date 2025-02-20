@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
         height: 120,
         marginBottom: 20,
     },
+
     card: {
         backgroundColor: AppColors.backgroundPopUp,
         paddingHorizontal: 30,
@@ -58,12 +59,13 @@ const styles = StyleSheet.create({
         marginTop: 15,
         color: "#777",
         fontSize: 14,
+        textAlign: "center"
     },
     formInput: {
         width: '100%',
         gap: 20,
         marginTop: 40,
-    }
+    },
 });
 
 export default styles;
