@@ -10,8 +10,7 @@ interface Props {
 export const RoundedButton = ({text, onPressFromInterface}: Props) => {
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.buttonForm}
-                              onPress={() => onPressFromInterface()}>
+            <TouchableOpacity style={styles.buttonForm} onPress={onPressFromInterface}>
                 <Text style={styles.buttonFormText}>{text}</Text>
             </TouchableOpacity>
         </View>
@@ -25,9 +24,11 @@ const styles = StyleSheet.create({
     },
     buttonForm: {
         backgroundColor: AppColors.rojo,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingVertical: 15,
+        paddingHorizontal: 49,
         borderRadius: 50,
+        width: "100%",
+        alignItems: "center",
     },
     buttonFormText: {
         color: "#FFF",

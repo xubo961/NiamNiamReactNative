@@ -1,58 +1,167 @@
-import React from "react";
-import { Image, Text, View } from "react-native";
-import LinearGradient from 'react-native-linear-gradient'; // Importamos el gradiente
+import React, {useState} from "react";
+import {Image, Text, TouchableOpacity, View} from "react-native";
 import styles from "./StylesLogin";
 import {FormInputInlineWithIcon} from "../../components/TextInput";
 import {RoundedButton} from "../../components/RoundedButton";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
 import viewModel from "./ViewModel";
 
-
-export function LoginScreen({navigation} : PropsStackNavigation) {
-
+export function LoginScreen({navigation}: PropsStackNavigation) {
     const {onChangeLogin} = viewModel.LoginViewModel();
-
+    const [isLogin, setIsLogin] = useState(true);
 
     return (
         <View style={styles.container}>
-            <View style={styles.imageContainer}>
-                <Image style={styles.image} source={require("../../../../assets/logoniamniam.png")} />
-            </View>
+            <Image style={styles.logo} source={require("../../../../assets/logoniamniam.png")}/>
 
-            <View style={styles.formContainer}>
-                <FormInputInlineWithIcon
-                    image={require("../../../../assets/logoniamniam.png")}
-                    placeholder={"E-Mail"}
-                    keyboardType="email-address"
-                    secureTextEntry={false}
-                    onPressFormInterface={(text: string) => onChangeLogin('email', text)}
-                />
-
-                <FormInputInlineWithIcon
-                    image={require("../../../../assets/logoniamniam.png")}
-                    placeholder={"Password"}
-                    keyboardType="default"
-                    secureTextEntry={true}
-                    onPressFormInterface={(text:string) => onChangeLogin('password', text)}
-                />
-
-                <View>
-                    <RoundedButton text={"Log In"} onPressFromInterface={() => {
-                         navigation.navigate("LoginScreen")
-                    }} />
+            <View style={styles.card}>
+                <View style={styles.toggleContainer}>
+                    <TouchableOpacity
+                        style={[styles.toggleButton, isLogin && styles.activeButton]}
+                        onPress={() => setIsLogin(true)}
+                    >
+                        <Text style={[styles.toggleText, isLogin && styles.activeText]}>Log in</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.toggleButton, !isLogin && styles.activeButton]}
+                        onPress={() => setIsLogin(false)}
+                    >
+                        <Text style={[styles.toggleText, !isLogin && styles.activeText]}>Sign Up</Text>
+                    </TouchableOpacity>
                 </View>
 
-                <View style={styles.textContainer}>
-                    <Text style={styles.text}>ForgotPassword?</Text>
+                <View style={styles.formInput}>
+                    <FormInputInlineWithIcon
+                        image={require("../../../../assets/logoniamniam.png")}
+                        placeholder={"E-Mail"}
+                        keyboardType="email-address"
+                        secureTextEntry={false}
+                        onPressFormInterface={(text: string) => onChangeLogin('email', text)}
+                    />
+
+                    <FormInputInlineWithIcon
+                        image={require("../../../../assets/logoniamniam.png")}
+                        placeholder={"Password"}
+                        keyboardType="default"
+                        secureTextEntry={true}
+                        onPressFormInterface={(text: string) => onChangeLogin('password', text)}
+                    />
                 </View>
 
-                <View style={{marginTop: 30}}>
-                    <RoundedButton text={"Registrar"} onPressFromInterface={() => {
-                        navigation.navigate("RegisterScreen")
-                    }} />
+                <View style={{ width: '100%', marginTop: "auto" }}>
+                    <RoundedButton text={"Log In"} onPressFromInterface={() => {}} />
                 </View>
+                <Text style={styles.forgotPassword}>Forgot password?</Text>
+
             </View>
         </View>
-);
-
+    );
 }
+
+
+
+//Esto es otra prueba jejeje :D
+// import React, { useState } from "react";
+// import { Image, Text, TouchableOpacity, View } from "react-native";
+// import styles from "./StylesLogin";
+// import { FormInputInlineWithIcon } from "../../components/TextInput";
+// import { RoundedButton } from "../../components/RoundedButton";
+// import { PropsStackNavigation } from "../../interfaces/StackNav";
+// import viewModel from "./ViewModel";
+//
+// export function LoginScreen({ navigation }: PropsStackNavigation) {
+//     const { onChangeLogin } = viewModel.LoginViewModel();
+//     const [isLogin, setIsLogin] = useState(true);
+//
+//     return (
+//         <View style={styles.container}>
+//             <Image style={styles.logo} source={require("../../../../assets/logoniamniam.png")} />
+//
+//             <View style={styles.card}>
+//                 <View style={styles.toggleContainer}>
+//                     <TouchableOpacity
+//                         style={[styles.toggleButton, isLogin && styles.activeButton]}
+//                         onPress={() => setIsLogin(true)}
+//                     >
+//                         <Text style={[styles.toggleText, isLogin && styles.activeText]}>Log in</Text>
+//                     </TouchableOpacity>
+//                     <TouchableOpacity
+//                         style={[styles.toggleButton, !isLogin && styles.activeButton]}
+//                         onPress={() => setIsLogin(false)}
+//                     >
+//                         <Text style={[styles.toggleText, !isLogin && styles.activeText]}>Sign Up</Text>
+//                     </TouchableOpacity>
+//                 </View>
+//
+//                 <View style={styles.formInput}>
+//                     {/* Mostrar formulario de Login */}
+//                     {isLogin ? (
+//                         <>
+//                             <FormInputInlineWithIcon
+//                                 image={require("../../../../assets/logoniamniam.png")}
+//                                 placeholder={"E-Mail"}
+//                                 keyboardType="email-address"
+//                                 secureTextEntry={false}
+//                                 onPressFormInterface={(text: string) => onChangeLogin('email', text)}
+//                             />
+//
+//                             <FormInputInlineWithIcon
+//                                 image={require("../../../../assets/logoniamniam.png")}
+//                                 placeholder={"Password"}
+//                                 keyboardType="default"
+//                                 secureTextEntry={true}
+//                                 onPressFormInterface={(text: string) => onChangeLogin('password', text)}
+//                             />
+//
+//                             <View style={{ width: '100%', marginTop: "auto" }}>
+//                                 <RoundedButton text={"Log In"} onPressFromInterface={() => {}} />
+//                             </View>
+//
+//                             <Text style={styles.forgotPassword}>Forgot password?</Text>
+//                         </>
+//                     ) : (
+//                         <>
+//                             {/* Mostrar formulario de Registro */}
+//                             <FormInputInlineWithIcon
+//                                 image={require("../../../../assets/logoniamniam.png")}
+//                                 placeholder={"Full Name"}
+//                                 keyboardType="default"
+//                                 secureTextEntry={false}
+//                                 onPressFormInterface={(text: string) => onChangeLogin('fullName', text)}
+//                             />
+//
+//                             <FormInputInlineWithIcon
+//                                 image={require("../../../../assets/logoniamniam.png")}
+//                                 placeholder={"E-Mail"}
+//                                 keyboardType="email-address"
+//                                 secureTextEntry={false}
+//                                 onPressFormInterface={(text: string) => onChangeLogin('email', text)}
+//                             />
+//
+//                             <FormInputInlineWithIcon
+//                                 image={require("../../../../assets/logoniamniam.png")}
+//                                 placeholder={"Password"}
+//                                 keyboardType="default"
+//                                 secureTextEntry={true}
+//                                 onPressFormInterface={(text: string) => onChangeLogin('password', text)}
+//                             />
+//
+//                             <FormInputInlineWithIcon
+//                                 image={require("../../../../assets/logoniamniam.png")}
+//                                 placeholder={"Confirm Password"}
+//                                 keyboardType="default"
+//                                 secureTextEntry={true}
+//                                 onPressFormInterface={(text: string) => onChangeLogin('confirmPassword', text)}
+//                             />
+//
+//                             <View style={{ width: '100%', marginTop: "auto" }}>
+//                                 <RoundedButton text={"Sign Up"} onPressFromInterface={() => {}} />
+//                             </View>
+//                         </>
+//                     )}
+//                 </View>
+//             </View>
+//         </View>
+//     );
+// }
+
