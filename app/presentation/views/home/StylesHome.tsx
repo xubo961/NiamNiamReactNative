@@ -1,11 +1,13 @@
-import {StatusBar, StyleSheet} from "react-native";
-import {AppColors} from "../../theme/AppTheme";
+import { StyleSheet, Dimensions } from "react-native";
+import { AppColors } from "../../theme/AppTheme";
+
+const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#FFF8E7",
+        backgroundColor: AppColors.background,
         flex: 1,
-        paddingHorizontal: 20,
+        paddingHorizontal: width * 0.05,
         paddingTop: 10,
     },
 
@@ -17,19 +19,15 @@ const styles = StyleSheet.create({
     },
 
     logo: {
-        width: 50,
-        height: 50,
         resizeMode: "contain",
     },
 
     title: {
-        fontSize: 22,
         fontWeight: "bold",
-        color: "#333",
+        color: AppColors.text,
     },
 
     welcomeText: {
-        fontSize: 18,
         textAlign: "center",
         marginVertical: 15,
         fontWeight: "500",
@@ -57,12 +55,12 @@ const styles = StyleSheet.create({
     searchContainer: {
         flexDirection: "row",
         alignItems: "center",
-        backgroundColor: "#FDD835",
+        backgroundColor: AppColors.amarillo,
         borderRadius: 25,
-        paddingHorizontal: 12,
-        paddingVertical: 8,
+        paddingHorizontal: width * 0.03,
+        paddingVertical: height * 0.010,
         marginBottom: 30,
-        shadowColor: "#000",
+        shadowColor: AppColors.text,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 4,

@@ -2,7 +2,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Image} from "react-native";
 import {HomeScreen} from "../views/home/Home";
 import {FavouritesScreen} from "../views/favorites/Favourites";
-import {Add} from "../views/add/Add";
+import {AddScreen} from "../views/add/Add";
 import {ProfileScreen} from "../views/profile/Profile";
 import {AppColors} from "../theme/AppTheme";
 
@@ -14,7 +14,11 @@ export const AdminTabNavigator = () => {
             tabBarActiveTintColor: AppColors.rojo,
             tabBarInactiveTintColor: AppColors.grisOscuro,
             tabBarLabel: () => null,
-            headerShown: true
+            headerShown: true,
+            tabBarStyle: {
+                backgroundColor: AppColors.background,
+            },
+
         }}>
             <Tab.Screen name="HomeScreen"
                         options={{
@@ -55,7 +59,7 @@ export const AdminTabNavigator = () => {
                                 ></Image>
                             )
                         }}
-                        component={Add}
+                        component={AddScreen}
             />
 
             <Tab.Screen name="ProfileScreen"
