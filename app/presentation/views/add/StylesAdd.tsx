@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
 
     descriptionContainer: {
         width: '80%',
-        backgroundColor: '#FFF3CD',
+        backgroundColor: AppColors.backgroundPopUp,
         borderRadius: 15,
         padding: 15,
         marginBottom: 40,
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         fontSize: 18,
-        color: '#fff',
+        color: AppColors.text,
     },
 });
 
