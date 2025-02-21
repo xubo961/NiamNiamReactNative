@@ -27,24 +27,27 @@ export default StyleSheet.create({
     },
     usernameContainer: {
         backgroundColor: "#FDEBCD",
-        borderRadius: 10,
+        borderRadius: 25,
         padding: 16,
         marginBottom: 8,
+        paddingStart:30
     },
     usernameText: {
         fontSize: 16,
         fontWeight: "bold",
         color: "#000",
+        textAlign:"center"
     },
     descriptionContainer: {
         backgroundColor: "#FDEBCD",
-        borderRadius: 10,
+        borderRadius: 25,
         padding: 16,
         marginBottom: 16,
     },
     descriptionText: {
         fontSize: 14,
         color: "#000",
+        textAlign: "center",
     },
     sectionTitle: {
         fontSize: 16,

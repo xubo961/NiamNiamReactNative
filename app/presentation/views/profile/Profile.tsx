@@ -4,7 +4,7 @@ import {
     Text,
     Image,
     TouchableOpacity,
-    ScrollView
+    ScrollView, TextInput
 } from "react-native";
 import { Divider, Menu, Provider } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -63,6 +63,7 @@ export const ProfileScreen = ({ navigation }: PropsStackNavigation) => {
                 {/* DESCRIPCIÓN */}
                 <View style={styles.descriptionContainer}>
                     <Text style={styles.descriptionText}>Description</Text>
+                    <TextInput placeholder={"Description..."}></TextInput>
                 </View>
 
                 {/* SECCIÓN: "Tus recetas" */}

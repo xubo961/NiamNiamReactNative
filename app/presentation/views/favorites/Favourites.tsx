@@ -38,78 +38,11 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
 
                 {/* BARRA DE BÚSQUEDA */}
                 <View style={styles.searchContainer}>
-                    <TextInput
-                        style={styles.searchInput}
-                        placeholder="Search..."
-                        placeholderTextColor="#999"
-                    />
+                    <MaterialIcons name="search" size={24} color="black" style={styles.searchIcon} />
+                    <TextInput style={styles.searchInput} placeholder="Search..." placeholderTextColor="#555" />
                 </View>
-
                 {/* LISTA HORIZONTAL DE PLATOS */}
-                    <ScrollView
-                        showsVerticalScrollIndicator={false}
-                        style={styles.dishesContainer}
-                    >
-                    {/* Plato 1 */}
-                    <View style={styles.dishItem}>
-                        <Image
-                            source={{ uri: "https://example.com/pollo-al-limon.jpg" }}
-                            style={styles.dishImage}
-                        />
-                        <Text style={styles.dishText}>Pollo al limón</Text>
-                    </View>
 
-                    {/* Plato 2 */}
-                    <View style={styles.dishItem}>
-                        <Image
-                            source={{ uri: "https://example.com/tarta-de-queso.jpg" }}
-                            style={styles.dishImage}
-                        />
-                        <Text style={styles.dishText}>Tarta de queso</Text>
-                    </View>
-                    {/* Plato 2 */}
-                    <View style={styles.dishItem}>
-                        <Image
-                            source={{ uri: "https://example.com/tarta-de-queso.jpg" }}
-                            style={styles.dishImage}
-                        />
-                        <Text style={styles.dishText}>Tarta de queso</Text>
-                    </View>
-                    {/* Plato 2 */}
-                    <View style={styles.dishItem}>
-                        <Image
-                            source={{ uri: "https://example.com/tarta-de-queso.jpg" }}
-                            style={styles.dishImage}
-                        />
-                        <Text style={styles.dishText}>Tarta de queso</Text>
-                    </View>
-                    {/* Plato 2 */}
-                    <View style={styles.dishItem}>
-                        <Image
-                            source={{ uri: "https://example.com/tarta-de-queso.jpg" }}
-                            style={styles.dishImage}
-                        />
-                        <Text style={styles.dishText}>Tarta de queso</Text>
-                    </View>
-                    {/* Plato 2 */}
-                    <View style={styles.dishItem}>
-                        <Image
-                            source={{ uri: "https://example.com/tarta-de-queso.jpg" }}
-                            style={styles.dishImage}
-                        />
-                        <Text style={styles.dishText}>Tarta de queso</Text>
-                    </View>
-                    {/* Plato 2 */}
-                    <View style={styles.dishItem}>
-                        <Image
-                            source={{ uri: "https://example.com/tarta-de-queso.jpg" }}
-                            style={styles.dishImage}
-                        />
-                        <Text style={styles.dishText}>Tarta de queso</Text>
-                    </View>
-
-                    {/* Agrega más platos según necesites */}
-                </ScrollView>
             </View>
         </Provider>
     );
