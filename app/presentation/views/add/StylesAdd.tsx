@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         backgroundColor: AppColors.background,
         flex: 1,
         paddingHorizontal: width * 0.05,
-        paddingTop: 10,
+        paddingTop: 20,
     },
 
     header: {
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         paddingBottom: 20,
-        marginTop: 10,
+        marginTop: 20,
     },
 
     logo: {
@@ -39,25 +39,19 @@ const styles = StyleSheet.create({
         fontSize: width * 0.05,
     },
 
-    divCard: {
-        alignSelf: "center",
-        textAlign: "center",
-        width: "100%",
-        height: "auto",
-        backgroundColor: AppColors.rojo,
-        borderRadius: 25,
-        padding: 20,
-    },
-
     card: {
         height: "auto",
         width: '100%',
         backgroundColor: AppColors.backgroundPopUp,
         alignSelf: "center",
         borderRadius: 25,
-        marginBottom: 20,
+        marginBottom: 25,
         paddingHorizontal: 20,
-        paddingVertical: 15,
+        paddingVertical: 20,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 2 },
+        elevation: 2,
     },
 
     dropdown: {
@@ -134,7 +128,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 8,
         paddingHorizontal: 15,
-        marginBottom: 15,
+        marginBottom: 20,
         fontSize: 16,
     },
 
@@ -144,8 +138,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     image: {
-        width: 120,
-        height: 120,
+        width: 140,
+        height: 140,
         borderRadius: 10,
     },
 
@@ -154,7 +148,7 @@ const styles = StyleSheet.create({
         height: "auto",
         width: '70%',
         alignItems: 'center',
-        marginBottom: 80,
+        marginBottom: 60,
         backgroundColor: AppColors.amarillo,
         borderRadius: 20,
         padding: 10,
@@ -162,14 +156,14 @@ const styles = StyleSheet.create({
     },
 
     imageBox: {
-        width: 120,
-        height: 120,
+        width: 140,
+        height: 140,
         backgroundColor: '#FFF',
         borderRadius: 15,
         justifyContent: 'center',
         alignItems: 'center',
         shadowColor: '#000',
-        shadowOpacity: 0.1,
+        shadowOpacity: 0.2,
         shadowOffset: { width: 0, height: 2 },
         marginBottom: 10,
     },
@@ -179,7 +173,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF3CD',
         borderRadius: 15,
         padding: 15,
-        marginBottom: 30,
+        marginBottom: 40,
     },
     descriptionInput: {
         height: 80,
@@ -188,10 +182,10 @@ const styles = StyleSheet.create({
     },
     saveButton: {
         backgroundColor: AppColors.amarillo,
-        paddingVertical: 10,
-        paddingHorizontal: 40,
-        borderRadius: 20,
-        marginTop: 20,
+        paddingVertical: 12,
+        paddingHorizontal: 45,
+        borderRadius: 25,
+        marginTop: 30,
         alignSelf: 'center',
         shadowColor: '#000',
         shadowOpacity: 0.2,
@@ -205,7 +199,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: '#fff',
     },
-
 });
 
 export default styles;

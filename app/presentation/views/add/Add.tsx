@@ -32,7 +32,6 @@ export const AddScreen = ({navigation}: PropsStackNavigation) => {
         return (
             <View style={styles.item}>
                 <Text style={styles.selectedTextStyle}>{item.label}</Text>
-                {/*<AntDesign style={styles.icon} color="black" name="Safety" size={20}/>*/}
             </View>
         );
     };
@@ -88,81 +87,63 @@ export const AddScreen = ({navigation}: PropsStackNavigation) => {
                     </Menu>
                 </View>
 
-                <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}>
-                    <View style={styles.divCard}>
-                        <View style={styles.card}>
-                            <Text style={[styles.titleDivTetxt, {fontSize: width * 0.05}]}>Name</Text>
-                            <TextInput style={styles.input} placeholder="Enter name"/>
-                        </View>
-
-                        <View style={styles.card}>
-                            <Text style={[styles.titleDivTetxt, {fontSize: width * 0.05}]}>Ingredients</Text>
-                            <View>
-                                <MultiSelect
-                                    style={styles.dropdown}
-                                    placeholderStyle={styles.placeholderStyle}
-                                    selectedTextStyle={styles.selectedTextStyle}
-                                    inputSearchStyle={styles.inputSearchStyle}
-                                    iconStyle={styles.iconStyle}
-                                    data={data}
-                                    labelField="label"
-                                    valueField="value"
-                                    placeholder="Select Ingredients"
-                                    value={selected}
-                                    search
-                                    searchPlaceholder="Search..."
-                                    onChange={item => setSelected(item)}
-                                    // renderLeftIcon={() => (
-                                    //     <AntDesign
-                                    //         style={styles.icon}
-                                    //         color="black"
-                                    //         name="Safety"
-                                    //         size={20}
-                                    //     />
-                                    // )}
-                                    renderItem={renderItem}
-                                    renderSelectedItem={(item, unSelect) => (
-                                        <TouchableOpacity onPress={() => unSelect && unSelect(item)}>
-                                            <View style={styles.selectedStyle}>
-                                                <Text style={styles.textSelectedStyle}>{item.label}</Text>
-                                                <AntDesign color="black" name="delete" size={17}/>
-                                            </View>
-                                        </TouchableOpacity>
-                                    )}
-                                />
-                            </View>
-                        </View>
-
-                        <View style={styles.card}>
-                            <Text style={[styles.titleDivTetxt, {fontSize: width * 0.05}]}>Image</Text>
-                            <View style={styles.imageContainer}>
-                                <TouchableOpacity style={styles.imageBox} onPress={pickImage}>
-                                    {image ? (
-                                        <Image source={{uri: image}} style={styles.image}/>
-                                    ) : (
-                                        <AntDesign name="plus" size={32} color="black"/>
-                                        // <MaterialIcons name="photo-camera" size={32} color="black" />
-                                    )}
-                                </TouchableOpacity>
-                                <Button title="Take a photo" onPress={takePhoto} />
-
-                            </View>
-                        </View>
-
-                        <View style={styles.card}>
-                            <View style={styles.descriptionContainer}>
-                                <Text style={styles.titleDivTetxt}>Descripción</Text>
-                                <TextInput
-                                    style={styles.descriptionInput}
-                                    placeholder="Texto..."
-                                    multiline
-                                />
-                            </View>
-                        </View>
-                        <TouchableOpacity style={styles.saveButton}>
-                            <Text style={styles.saveButtonText}>Guardar</Text>
-                        </TouchableOpacity>
+                <ScrollView contentContainerStyle={{flexGrow: 1, paddingBottom: 20}}>
+                    <View style={styles.card}>
+                        <Text style={[styles.titleDivTetxt, {fontSize: width * 0.05}]}>Name</Text>
+                        <TextInput style={styles.input} placeholder="Enter name"/>
                     </View>
+
+                    <View style={styles.card}>
+                        <Text style={[styles.titleDivTetxt, {fontSize: width * 0.05}]}>Ingredients</Text>
+                        <MultiSelect
+                            style={styles.dropdown}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+                            data={data}
+                            labelField="label"
+                            valueField="value"
+                            placeholder="Select Ingredients"
+                            value={selected}
+                            search
+                            searchPlaceholder="Search..."
+                            onChange={item => setSelected(item)}
+                            renderItem={renderItem}
+                            renderSelectedItem={(item, unSelect) => (
+                                <TouchableOpacity onPress={() => unSelect && unSelect(item)}>
+                                    <View style={styles.selectedStyle}>
+                                        <Text style={styles.textSelectedStyle}>{item.label}</Text>
+                                        <AntDesign color="black" name="delete" size={17}/>
+                                    </View>
+                                </TouchableOpacity>
+                            )}
+                        />
+                    </View>
+
+                    <View style={styles.card}>
+                        <Text style={[styles.titleDivTetxt, {fontSize: width * 0.05}]}>Image</Text>
+                        <View style={styles.imageContainer}>
+                            <TouchableOpacity style={styles.imageBox} onPress={pickImage}>
+                                {image ? (
+                                    <Image source={{uri: image}} style={styles.image}/>
+                                ) : (
+                                    <AntDesign name="plus" size={32} color="black"/>
+                                )}
+                            </TouchableOpacity>
+                            <Button title="Take a photo" onPress={takePhoto}/>
+                        </View>
+                    </View>
+
+                    <View style={styles.card}>
+                        <View style={styles.descriptionContainer}>
+                            <Text style={styles.titleDivTetxt}>Descripción</Text>
+                            <TextInput style={styles.descriptionInput} placeholder="Texto..." multiline/>
+                        </View>
+                    </View>
+                    <TouchableOpacity style={styles.saveButton}>
+                        <Text style={styles.saveButtonText}>Guardar</Text>
+                    </TouchableOpacity>
                 </ScrollView>
             </View>
         </Provider>
