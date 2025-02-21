@@ -4,7 +4,7 @@ import {Text, View} from "react-native";
 export const Add = () => {
     return (
         <View>
-            <Text>AddScreen</Text>
+            <Text>AddScreen11111111111</Text>
         </View>
     )
 }

@@ -19,7 +19,7 @@ export function WelcomeScreen({navigation} : PropsStackNavigation) {
 
             <View style={styles.textContainer}>
                 <Text>
-                    Don't have an account?{' '}
+                    Don't has an account?{' '}
                     <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
                         <Text style={{ color: AppColors.rojo }}>Sign Up</Text>
                     </TouchableOpacity>
