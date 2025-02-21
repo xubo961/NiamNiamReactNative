@@ -118,6 +118,17 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: 10,
     },
+
+    containerImage: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    image: {
+        width: 200,
+        height: 200,
+        marginTop: 20,
+    },
 });
 
 export default styles;

@@ -20,11 +20,13 @@
     "react-native": "0.76.7",
     "react-native-element-dropdown": "^2.12.4",
     "react-native-gesture-handler": "^2.23.1",
+    "react-native-image-picker": "^8.1.0",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-paper": "^5.13.1",
     "react-native-reanimated": "^3.16.7",
     "react-native-safe-area-context": "^5.2.0",
-    "react-native-screens": "^4.7.0"
+    "react-native-screens": "^4.7.0",
+    "expo-image-picker": "~16.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
