@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingBottom: 15,
+        paddingBottom: 20,
+        marginTop: 10,
     },
 
     logo: {
@@ -24,30 +25,39 @@ const styles = StyleSheet.create({
 
     title: {
         fontWeight: "bold",
+        fontSize: width * 0.06,
         color: AppColors.text,
+        flex: 1,
+        textAlign: "center",
     },
 
-    welcomeText: {
+    titleDivTetxt: {
         textAlign: "center",
         marginVertical: 15,
         fontWeight: "500",
+        color: AppColors.text,
+        fontSize: width * 0.05,
     },
 
     divCard: {
         alignSelf: "center",
         textAlign: "center",
-        backgroundColor: "red",
         width: "100%",
         height: "auto",
+        backgroundColor: AppColors.rojo,
+        borderRadius: 25,
+        padding: 20,
     },
 
     card: {
-        height: 100,
-        width: 300,
+        height: "auto",
+        width: '100%',
         backgroundColor: AppColors.backgroundPopUp,
         alignSelf: "center",
         borderRadius: 25,
-        marginBottom: 20
+        marginBottom: 20,
+        paddingHorizontal: 20,
+        paddingVertical: 15,
     },
 
     dropdown: {
@@ -55,6 +65,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 12,
         padding: 12,
+        marginBottom: 15,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -64,6 +75,7 @@ const styles = StyleSheet.create({
         shadowRadius: 1.41,
         elevation: 2,
     },
+
     placeholderStyle: {
         fontSize: 16,
     },
@@ -74,19 +86,23 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
     },
+
     inputSearchStyle: {
         height: 40,
         fontSize: 16,
     },
+
     icon: {
         marginRight: 5,
     },
+
     item: {
         padding: 17,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
+
     selectedStyle: {
         flexDirection: 'row',
         justifyContent: 'center',
@@ -95,7 +111,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         shadowColor: '#000',
         marginTop: 8,
-        marginRight: 12,
+        marginRight: 8,
         paddingHorizontal: 12,
         paddingVertical: 8,
         shadowOffset: {
@@ -106,17 +122,20 @@ const styles = StyleSheet.create({
         shadowRadius: 1.41,
         elevation: 2,
     },
+
     textSelectedStyle: {
         marginRight: 5,
         fontSize: 16,
     },
 
     input: {
-        height: 40,
+        height: 50,
         borderColor: 'gray',
         borderWidth: 1,
         borderRadius: 8,
-        paddingHorizontal: 10,
+        paddingHorizontal: 15,
+        marginBottom: 15,
+        fontSize: 16,
     },
 
     containerImage: {
@@ -125,10 +144,68 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     image: {
-        width: 200,
-        height: 200,
-        marginTop: 20,
+        width: 120,
+        height: 120,
+        borderRadius: 10,
     },
+
+    imageContainer: {
+        alignSelf: "center",
+        height: "auto",
+        width: '70%',
+        alignItems: 'center',
+        marginBottom: 80,
+        backgroundColor: AppColors.amarillo,
+        borderRadius: 20,
+        padding: 10,
+        justifyContent: 'center',
+    },
+
+    imageBox: {
+        width: 120,
+        height: 120,
+        backgroundColor: '#FFF',
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 2 },
+        marginBottom: 10,
+    },
+
+    descriptionContainer: {
+        width: '80%',
+        backgroundColor: '#FFF3CD',
+        borderRadius: 15,
+        padding: 15,
+        marginBottom: 30,
+    },
+    descriptionInput: {
+        height: 80,
+        textAlignVertical: 'top',
+        fontSize: 16,
+    },
+    saveButton: {
+        backgroundColor: AppColors.amarillo,
+        paddingVertical: 10,
+        paddingHorizontal: 40,
+        borderRadius: 20,
+        marginTop: 20,
+        alignSelf: 'center',
+        shadowColor: '#000',
+        shadowOpacity: 0.2,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 2,
+        elevation: 2,
+    },
+    saveButtonText: {
+        fontWeight: 'bold',
+        textAlign: 'center',
+        fontSize: 18,
+        color: '#fff',
+    },
+
 });
 
 export default styles;
