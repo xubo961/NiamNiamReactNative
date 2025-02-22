@@ -6,5 +6,6 @@ export const AppColors = {
     amarillo: '#F8DD6F',
     rojo: '#FC0000',
     grisClaro: '#E1DEDE',
-    grisOscuro: '#C2C1C1'
+    grisOscuro: '#C2C1C1',
+    backgroundPopUpConatiner: "#FFEBA9"
 }
