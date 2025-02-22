@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
 
     dropdown: {
         height: 50,
-        backgroundColor: 'white',
+        backgroundColor: AppColors.amarillo,
         borderRadius: 12,
         padding: 12,
         marginBottom: 15,
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 14,
-        backgroundColor: 'white',
+        backgroundColor: AppColors.amarillo,
         shadowColor: '#000',
         marginTop: 8,
         marginRight: 8,
@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         marginBottom: 20,
         fontSize: 16,
+        backgroundColor: AppColors.amarillo,
     },
 
     containerImage: {
@@ -137,6 +138,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+
     image: {
         width: 140,
         height: 140,
@@ -148,8 +150,8 @@ const styles = StyleSheet.create({
         height: "auto",
         width: '70%',
         alignItems: 'center',
-        marginBottom: 60,
-        backgroundColor: AppColors.amarillo,
+        marginBottom: 10,
+        backgroundColor: AppColors.backgroundPopUp,
         borderRadius: 20,
         padding: 10,
         justifyContent: 'center',
@@ -165,20 +167,41 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOpacity: 0.2,
         shadowOffset: { width: 0, height: 2 },
-        marginBottom: 10,
+    },
+
+    takePhotoButton: {
+        backgroundColor: AppColors.amarillo,
+        paddingVertical: 12,
+        paddingHorizontal: 20,
+        borderRadius: 25,
+        marginTop: 30,
+        shadowColor: '#000',
+        shadowOpacity: 0.2,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 2,
+        elevation: 2,
+    },
+
+    takePhotoButtonText: {
+        fontWeight: 'bold',
+        textAlign: 'center',
+        fontSize: 16,
+        color: AppColors.text,
     },
 
     descriptionContainer: {
+        alignSelf: "center",
         width: '80%',
         backgroundColor: AppColors.backgroundPopUp,
         borderRadius: 15,
         padding: 15,
-        marginBottom: 40,
     },
     descriptionInput: {
-        height: 80,
-        textAlignVertical: 'top',
+        alignSelf: "center",
+        height: 120,
+        width: '100%',
         fontSize: 16,
+        backgroundColor: AppColors.amarillo,
     },
     saveButton: {
         backgroundColor: AppColors.amarillo,

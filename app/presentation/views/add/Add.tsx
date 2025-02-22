@@ -1,26 +1,26 @@
-import React, {useState} from "react";
-import {Dimensions, Image, ScrollView, Text, TextInput, TouchableOpacity, View, Button, StyleSheet} from "react-native";
+import React, { useState } from "react";
+import { Dimensions, Image, ScrollView, Text, TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
 import styles from "./StylesAdd";
-import {Divider, Menu, Provider} from "react-native-paper";
-import {AntDesign, MaterialIcons} from "@expo/vector-icons";
-import {PropsStackNavigation} from "../../interfaces/StackNav";
-import {MultiSelect} from "react-native-element-dropdown";
+import { Divider, Menu, Provider } from "react-native-paper";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { PropsStackNavigation } from "../../interfaces/StackNav";
+import { MultiSelect } from "react-native-element-dropdown";
 import * as ImagePicker from 'expo-image-picker';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const data = [
-    {label: 'Item 1', value: '1'},
-    {label: 'Item 2', value: '2'},
-    {label: 'Item 3', value: '3'},
-    {label: 'Item 4', value: '4'},
-    {label: 'Item 5', value: '5'},
-    {label: 'Item 6', value: '6'},
-    {label: 'Item 7', value: '7'},
-    {label: 'Item 8', value: '8'},
+    { label: 'Item 1', value: '1' },
+    { label: 'Item 2', value: '2' },
+    { label: 'Item 3', value: '3' },
+    { label: 'Item 4', value: '4' },
+    { label: 'Item 5', value: '5' },
+    { label: 'Item 6', value: '6' },
+    { label: 'Item 7', value: '7' },
+    { label: 'Item 8', value: '8' },
 ];
 
-export const AddScreen = ({navigation}: PropsStackNavigation) => {
+export const AddScreen = ({ navigation }: PropsStackNavigation) => {
     const [visible, setVisible] = useState(false);
     const [selected, setSelected] = useState<string[]>([]);
     const [image, setImage] = useState<string | null>(null);
@@ -66,35 +66,35 @@ export const AddScreen = ({navigation}: PropsStackNavigation) => {
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Image
-                        style={[styles.logo, {width: width * 0.15, height: width * 0.15}]}
+                        style={[styles.logo, { width: width * 0.15, height: width * 0.15 }]}
                         source={require("../../../../assets/logoniamniam.png")}
                     />
-                    <Text style={[styles.title, {fontSize: width * 0.06}]}>Add Recipe</Text>
+                    <Text style={[styles.title, { fontSize: width * 0.06 }]}>Add Recipe</Text>
                     <Menu
                         visible={visible}
                         onDismiss={closeMenu}
                         anchor={
                             <TouchableOpacity onPress={openMenu}>
-                                <MaterialIcons name="more-vert" size={30} color="black"/>
+                                <MaterialIcons name="more-vert" size={30} color="black" />
                             </TouchableOpacity>
                         }
                     >
-                        <Menu.Item onPress={() => alert('Acerca de')} title="About us"/>
-                        <Menu.Item onPress={() => alert('Hola:D')} title="Hola:D"/>
-                        <Menu.Item onPress={() => alert('jaja')} title="jaja"/>
-                        <Divider/>
-                        <Menu.Item onPress={() => navigation.navigate("WelcomeScreen")} title="Logout"/>
+                        <Menu.Item onPress={() => alert('Acerca de')} title="About us" />
+                        <Menu.Item onPress={() => alert('Hola:D')} title="Hola:D" />
+                        <Menu.Item onPress={() => alert('jaja')} title="jaja" />
+                        <Divider />
+                        <Menu.Item onPress={() => navigation.navigate("WelcomeScreen")} title="Logout" />
                     </Menu>
                 </View>
 
-                <ScrollView contentContainerStyle={{flexGrow: 1, paddingBottom: 20}}>
+                <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}>
                     <View style={styles.card}>
-                        <Text style={[styles.titleDivTetxt, {fontSize: width * 0.05}]}>Name</Text>
-                        <TextInput style={styles.input} placeholder="Enter name"/>
+                        <Text style={[styles.titleDivTetxt, { fontSize: width * 0.05 }]}>Name</Text>
+                        <TextInput style={styles.input} placeholder="Enter name" />
                     </View>
 
                     <View style={styles.card}>
-                        <Text style={[styles.titleDivTetxt, {fontSize: width * 0.05}]}>Ingredients</Text>
+                        <Text style={[styles.titleDivTetxt, { fontSize: width * 0.05 }]}>Ingredients</Text>
                         <MultiSelect
                             style={styles.dropdown}
                             placeholderStyle={styles.placeholderStyle}
@@ -114,7 +114,7 @@ export const AddScreen = ({navigation}: PropsStackNavigation) => {
                                 <TouchableOpacity onPress={() => unSelect && unSelect(item)}>
                                     <View style={styles.selectedStyle}>
                                         <Text style={styles.textSelectedStyle}>{item.label}</Text>
-                                        <AntDesign color="black" name="delete" size={17}/>
+                                        <AntDesign color="black" name="delete" size={17} />
                                     </View>
                                 </TouchableOpacity>
                             )}
@@ -122,23 +122,25 @@ export const AddScreen = ({navigation}: PropsStackNavigation) => {
                     </View>
 
                     <View style={styles.card}>
-                        <Text style={[styles.titleDivTetxt, {fontSize: width * 0.05}]}>Image</Text>
+                        <Text style={[styles.titleDivTetxt, { fontSize: width * 0.05 }]}>Image</Text>
                         <View style={styles.imageContainer}>
                             <TouchableOpacity style={styles.imageBox} onPress={pickImage}>
                                 {image ? (
-                                    <Image source={{uri: image}} style={styles.image}/>
+                                    <Image source={{ uri: image }} style={styles.image} />
                                 ) : (
-                                    <AntDesign name="plus" size={32} color="black"/>
+                                    <AntDesign name="plus" size={32} color="black" />
                                 )}
                             </TouchableOpacity>
-                            <Button title="Take a photo" onPress={takePhoto}/>
+                            <TouchableOpacity style={styles.takePhotoButton} onPress={takePhoto}>
+                                <Text style={styles.takePhotoButtonText}>Take a photo</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
 
                     <View style={styles.card}>
                         <View style={styles.descriptionContainer}>
                             <Text style={styles.titleDivTetxt}>Descripción</Text>
-                            <TextInput style={styles.descriptionInput} placeholder="Texto..." multiline/>
+                            <TextInput style={styles.descriptionInput} placeholder="Texto..." multiline />
                         </View>
                     </View>
                     <TouchableOpacity style={styles.saveButton}>
@@ -149,17 +151,3 @@ export const AddScreen = ({navigation}: PropsStackNavigation) => {
         </Provider>
     );
 };
-
-
-
-// <View style={styles.card}>
-//     <Text style={[styles.welcomeText, { fontSize: width * 0.05 }]}>Image</Text>
-//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//         <Button title="Pick an image from camera roll" onPress={pickImage} />
-//         <Button title="Take a photo" onPress={takePhoto} />
-//         {image && (
-//             <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: 20 }} />
-//         )}
-//     </View>
-// </View>
-
