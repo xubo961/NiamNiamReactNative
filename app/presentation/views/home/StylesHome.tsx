@@ -190,8 +190,55 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
 
+    categoryScroll: {
+        flexDirection: "row",
+    },
+
+
+    categoryButton: {
+        backgroundColor: "#EEE",
+        borderRadius: 15,
+        paddingHorizontal: 15,
+        paddingVertical: 8,
+        marginRight: 10,
+    },
+
+    categoryWrapper: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+    },
+
+
+    categoryItem: {
+        alignItems: "center",
+        marginHorizontal: 10,
+    },
+
+
+    categoryText: {
+        fontSize: 16,
+        fontWeight: "600",
+        color: AppColors.grisOscuro,
+    },
+
+
+    activeCategoryText: {
+        color: AppColors.rojo,
+        fontWeight: "bold",
+    },
+
+
+    activeCategoryUnderline: {
+        marginTop: 2,
+        height: 2,
+        backgroundColor: AppColors.rojo,
+        width: "100%",
+        alignSelf: "center",
+    },
 
 
 });
 
 export default styles;
+
