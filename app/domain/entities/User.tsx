@@ -1,8 +1,14 @@
 
 export interface UserInterface {
     id?: number;
-    name: string;
+    firstName: string;
     email: string;
     password: string;
     repeatPassword?: string;
+}
+
+export type UserLogininterface = Pick<UserInterface, "email" | "password">;
+
+export interface UserLogin extends UserInterface{
+    token: string;
 }
