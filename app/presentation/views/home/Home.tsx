@@ -5,6 +5,7 @@ import { Divider, Menu, Provider } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
 import { PropsStackNavigation } from "../../interfaces/StackNav";
 import {AppColors} from "../../theme/AppTheme";
+import ViewModel from "./HomeViewModel";
 
 const { width } = Dimensions.get("window");
 
@@ -20,6 +21,8 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
 
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
+
+    const {deleteSession} = ViewModel.HomeViewModel();
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -56,7 +59,7 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
             );
             const data = await response.json();
             setSelectedRecipe(data.meals[0]);
-            setShowModal(true); // Mostrar el modal con los detalles
+            setShowModal(true);
         } catch (error) {
             console.error("Error fetching recipe details:", error);
         }
@@ -108,7 +111,13 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                         <Menu.Item onPress={() => alert("Hola:D")} title="Hola:D" />
                         <Menu.Item onPress={() => alert("jaja")} title="jaja" />
                         <Divider />
-                        <Menu.Item onPress={() => navigation.navigate("WelcomeScreen")} title="Logout" />
+                        <Menu.Item
+                            onPress={() => {
+                                deleteSession();
+                                navigation.navigate("WelcomeScreen");
+                            }}
+                            title="Logout"
+                        />
                     </Menu>
                 </View>
                 <Text style={[styles.welcomeText, { fontSize: width * 0.05, overflow: "hidden" }]}>

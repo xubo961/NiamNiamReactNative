@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Image, Text, TouchableOpacity, View} from "react-native";
+import React, {useEffect, useState} from "react";
+import {Image, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import styles from "./StylesLogin";
 import {FormInputInlineWithIcon} from "../../components/TextInput";
 import {RoundedButton} from "../../components/RoundedButton";
@@ -7,8 +7,22 @@ import {PropsStackNavigation} from "../../interfaces/StackNav";
 import viewModel from "./ViewModel";
 
 export function LoginScreen({navigation}: PropsStackNavigation) {
-    const {onChangeLogin} = viewModel.LoginViewModel();
+
+    const {email, password, onChangeLogin, login, errorMessage, user} = viewModel.LoginViewModel();
     const [isLogin, setIsLogin] = useState(true);
+
+    useEffect(() => {
+        if (errorMessage != "")
+            ToastAndroid.show(errorMessage, ToastAndroid.LONG)
+    }, [errorMessage]);
+
+    useEffect(() => {
+        if (user && user?.token) {
+            console.log(JSON.stringify(user));
+            navigation.replace("AdminTabNavigator");
+        }
+    }, [user]);
+
 
     return (
         <View style={[styles.container]}>
@@ -49,7 +63,7 @@ export function LoginScreen({navigation}: PropsStackNavigation) {
 
                 <View style={{width: '100%', marginTop: "auto"}}>
                     <RoundedButton text={"Log In"} onPressFromInterface={() => {
-                        navigation.navigate("AdminTabNavigator")
+                        login()
                     }}/>
                 </View>
                 <Text style={styles.forgotPassword}>Forgot password?</Text>

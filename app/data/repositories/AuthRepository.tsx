@@ -29,7 +29,4 @@ export class AuthRepositoryImpl implements AuthRepository {
             return Promise.resolve(JSON.parse(JSON.stringify(e.response?.data)) as ApiDeliveryResponse);
         }
     }
-
-
-
 }

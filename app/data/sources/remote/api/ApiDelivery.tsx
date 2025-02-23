@@ -5,6 +5,6 @@ const ApiDelivery = axios.create({
     headers: {
         "Content-Type": "application/json",
     }
-})
+});
 
-export {ApiDelivery};
+export { ApiDelivery };
