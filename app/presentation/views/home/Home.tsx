@@ -1,5 +1,20 @@
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { Image, Text, TextInput, TouchableOpacity, View, Dimensions, FlatList, Modal, ScrollView } from "react-native";
+=======
+import {
+    Image,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+    Dimensions,
+    FlatList,
+    Modal,
+    ScrollView,
+    Linking
+} from "react-native";
+>>>>>>> e57b31f8bc4c25a243f801fd54d1ba65e69a6a15
 import styles from "./StylesHome";
 import { Divider, Menu, Provider } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -37,6 +52,16 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
 
     // Función para verificar si una receta es favorita
     const isFavorite = (id: string) => favorites.has(id);
+
+    const openUrlBo = () => {
+        Linking.openURL('https://github.com/xubo961/')
+            .catch(err => console.error("Error al intentar abrir la URL: ", err));
+    };
+
+    const openUrlSantiago = () => {
+        Linking.openURL('https://github.com/SNgomez27')
+            .catch(err => console.error("Error al intentar abrir la URL: ", err));
+    };
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -120,9 +145,8 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                             </TouchableOpacity>
                         }
                     >
-                        <Menu.Item onPress={() => alert("Acerca de")} title="About us" />
-                        <Menu.Item onPress={() => alert("Hola:D")} title="Hola:D" />
-                        <Menu.Item onPress={() => alert("jaja")} title="jaja" />
+                        <Menu.Item onPress={() => {openUrlBo()}} title="About Bo" />
+                        <Menu.Item onPress={() => {openUrlSantiago()}} title="About Santiago" />
                         <Divider />
                         <Menu.Item
                             onPress={() => {

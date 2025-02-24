@@ -8,15 +8,14 @@ const styles = StyleSheet.create({
         backgroundColor: AppColors.background,
         flex: 1,
         paddingHorizontal: width * 0.05,
-        paddingTop: 20,
+        paddingTop: 10,
     },
 
     header: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingBottom: 20,
-        marginTop: 20,
+        paddingBottom: 15,
     },
 
     logo: {
