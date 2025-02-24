@@ -5,26 +5,27 @@ import {FavouritesScreen} from "./Favourites";
 
 export default StyleSheet.create({
     container: {
+        backgroundColor: "#FFF8E7",
         flex: 1,
-        backgroundColor: "#FFF9E6", // Color de fondo similar al de la imagen
-        paddingHorizontal: 16,
-        paddingTop: 40,             // Margen superior
+        paddingHorizontal: 20,
+        paddingTop: 10,
     },
     headerContainer: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        marginBottom: 16,
+        paddingBottom: 15,
     },
     logo: {
         width: 50,
         height: 50,
+        resizeMode: "contain",
     },
     title: {
-        fontSize: 20,
-        fontWeight: "bold",
-        color: "#000",
-        textAlign: "center",
+        fontSize: 18,
+        alignContent: "center",
+        marginVertical: 15,
+        fontWeight: "500",
     },
     welcome: {
         fontSize: 16,
@@ -33,42 +34,29 @@ export default StyleSheet.create({
         paddingBottom:25,
     },
     searchContainer: {
-        marginBottom: 16,
-        paddingEnd:30,
-        paddingStart:20,
-        paddingBottom:25,
-    },
-    searchInput: {
-        backgroundColor:AppColors.amarillo,
-        textDecorationColor:AppColors.rojo,
-        borderRadius: 8,
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: "#FDD835",
+        borderRadius: 25,
         paddingHorizontal: 12,
         paddingVertical: 8,
-        fontSize: 16,
-        color: "#000",
-        borderWidth: 1,
-        borderColor: "#ddd",
+        marginBottom: 30,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 3,
     },
-    dishesContainer: {
-        marginBottom: 16,
-        alignSelf: "center",
-    },
-    dishItem: {
-        width: 120,
-        alignItems: "center",
-        marginRight: 16,
-    },
-    dishImage: {
-        width: 80,
-        height: 80,
-        borderRadius: 40, // Para que se vea circular
-        marginBottom: 8,
-    },
-    dishText: {
+    searchInput: {
+        flex: 1,
         fontSize: 14,
-        textAlign: "center",
-        color: "#333",
+        color: "#000",
     },
+    searchIcon: {
+        marginRight: 8,
+    },
+
+
 });
 
 

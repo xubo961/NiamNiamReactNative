@@ -1,4 +1,4 @@
-import {AuthRepository} from "../../domain/repositories/AuthRepository";
+            import {AuthRepository} from "../../domain/repositories/AuthRepository";
 import {UserInterface, UserLogininterface} from "../../domain/entities/User";
 import {ApiDeliveryResponse} from "../sources/remote/models/ResponseApiDelivery";
 import {ApiDelivery} from "../sources/remote/api/ApiDelivery";
