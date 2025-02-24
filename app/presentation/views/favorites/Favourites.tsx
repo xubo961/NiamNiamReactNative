@@ -33,7 +33,6 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
                     <Text style={styles.title}>Favorites</Text>
                 </View>
 
-                {/* SUBTÍTULO / SALUDO */}
                 <Text style={styles.welcome}>Welcome to yours favorites</Text>
 
                 {/* BARRA DE BÚSQUEDA */}
@@ -41,7 +40,6 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
                     <MaterialIcons name="search" size={24} color="black" style={styles.searchIcon} />
                     <TextInput style={styles.searchInput} placeholder="Search..." placeholderTextColor="#555" />
                 </View>
-                {/* LISTA HORIZONTAL DE PLATOS */}
 
             </View>
         </Provider>
