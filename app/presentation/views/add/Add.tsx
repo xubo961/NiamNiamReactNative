@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dimensions, Image, ScrollView, Text, TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
+import {Dimensions, Image, Linking, ScrollView, Text, TextInput, TouchableOpacity, View, } from "react-native";
 import styles from "./StylesAdd";
 import { Divider, Menu, Provider } from "react-native-paper";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
@@ -11,26 +11,40 @@ import ViewModel from "../add/AddViewModel";
 const { width, height } = Dimensions.get('window');
 
 const data = [
-    { label: 'Item 1', value: '1' },
-    { label: 'Item 2', value: '2' },
-    { label: 'Item 3', value: '3' },
-    { label: 'Item 4', value: '4' },
-    { label: 'Item 5', value: '5' },
-    { label: 'Item 6', value: '6' },
-    { label: 'Item 7', value: '7' },
-    { label: 'Item 8', value: '8' },
+    { label: 'Huevo', value: 'Huevo' },
+    { label: 'Harina', value: 'Harina' },
+    { label: 'Aceite', value: 'Aceite' },
+    { label: 'Carne', value: 'Carne' },
+    { label: 'Lechuga', value: 'Lechuga' },
+    { label: 'Leche', value: 'Leche' },
+    { label: 'Azúcar', value: 'Azúcar' },
+    { label: 'Mayonesa', value: 'Mayonesa' },
 ];
 
 export const AddScreen = ({ navigation }: PropsStackNavigation) => {
     const [visible, setVisible] = useState(false);
     const [selected, setSelected] = useState<string[]>([]);
-    const [image, setImage] = useState<string | null>(null);
+    const [state, setState] = useState({
+        name: "",
+        ingredients: [] as string[],
+        image: [] as string[],
+        description: "",
+    });
 
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
 
-    const {deleteSession} = ViewModel.AddViewModel();
+    const { deleteSession } = ViewModel.AddViewModel();
 
+    const openUrlBo = () => {
+        Linking.openURL('https://github.com/xubo961/')
+            .catch(err => console.error("Error al intentar abrir la URL: ", err));
+    };
+
+    const openUrlSantiago = () => {
+        Linking.openURL('https://github.com/SNgomez27')
+            .catch(err => console.error("Error al intentar abrir la URL: ", err));
+    };
 
     const renderItem = (item: { label: string, value: string }) => {
         return (
@@ -49,7 +63,10 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
         });
 
         if (!result.canceled) {
-            setImage(result.assets[0].uri);
+            setState(prevState => ({
+                ...prevState,
+                image: [result.assets[0].uri]
+            }));
         }
     };
 
@@ -61,9 +78,23 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
         });
 
         if (!result.canceled) {
-            setImage(result.assets[0].uri);
+            setState(prevState => ({
+                ...prevState,
+                image: [result.assets[0].uri]
+            }));
         }
     };
+
+    const handleChangeText = (value: string, name: string) => {
+        setState(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    }
+
+    const saveProduct = () => {
+        console.log(state);
+    }
 
     return (
         <Provider>
@@ -83,9 +114,8 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
                             </TouchableOpacity>
                         }
                     >
-                        <Menu.Item onPress={() => alert('Acerca de')} title="About us" />
-                        <Menu.Item onPress={() => alert('Hola:D')} title="Hola:D" />
-                        <Menu.Item onPress={() => alert('jaja')} title="jaja" />
+                        <Menu.Item onPress={openUrlBo} title="About Bo" />
+                        <Menu.Item onPress={openUrlSantiago} title="About Santiago" />
                         <Divider />
                         <Menu.Item
                             onPress={() => {
@@ -100,7 +130,8 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
                 <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}>
                     <View style={styles.card}>
                         <Text style={[styles.titleDivTetxt, { fontSize: width * 0.05 }]}>Name</Text>
-                        <TextInput style={styles.input} placeholder="Enter name" />
+                        <TextInput style={styles.input} placeholder="Enter name"
+                                   onChangeText={(value) => handleChangeText(value, "name")} value={state.name} />
                     </View>
 
                     <View style={styles.card}>
@@ -115,10 +146,13 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
                             labelField="label"
                             valueField="value"
                             placeholder="Select Ingredients"
-                            value={selected}
+                            value={state.ingredients}
                             search
                             searchPlaceholder="Search..."
-                            onChange={item => setSelected(item)}
+                            onChange={items => setState(prevState => ({
+                                ...prevState,
+                                ingredients: items
+                            }))}
                             renderItem={renderItem}
                             renderSelectedItem={(item, unSelect) => (
                                 <TouchableOpacity onPress={() => unSelect && unSelect(item)}>
@@ -135,8 +169,8 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
                         <Text style={[styles.titleDivTetxt, { fontSize: width * 0.05 }]}>Image</Text>
                         <View style={styles.imageContainer}>
                             <TouchableOpacity style={styles.imageBox} onPress={pickImage}>
-                                {image ? (
-                                    <Image source={{ uri: image }} style={styles.image} />
+                                {state.image.length > 0 ? (
+                                    <Image source={{ uri: state.image[0] }} style={styles.image} />
                                 ) : (
                                     <AntDesign name="plus" size={32} color="black" />
                                 )}
@@ -149,12 +183,13 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
 
                     <View style={styles.card}>
                         <View style={styles.descriptionContainer}>
-                            <Text style={styles.titleDivTetxt}>Descripción</Text>
-                            <TextInput style={styles.descriptionInput} placeholder="Texto..." multiline />
+                            <Text style={styles.titleDivTetxt}>Description</Text>
+                            <TextInput style={styles.descriptionInput} placeholder="Type..." multiline
+                                       onChangeText={(value) => handleChangeText(value, "description")} value={state.description} />
                         </View>
                     </View>
-                    <TouchableOpacity style={styles.saveButton}>
-                        <Text style={styles.saveButtonText}>Guardar</Text>
+                    <TouchableOpacity style={styles.saveButton} onPress={saveProduct}>
+                        <Text style={styles.saveButtonText}>Save</Text>
                     </TouchableOpacity>
                 </ScrollView>
             </View>
