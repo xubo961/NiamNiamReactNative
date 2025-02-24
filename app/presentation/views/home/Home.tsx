@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Image, Text, TextInput, TouchableOpacity, View, Dimensions, FlatList, Modal, ScrollView} from "react-native";
+import { Image, Text, TextInput, TouchableOpacity, View, Dimensions, FlatList, Modal, ScrollView } from "react-native";
 import styles from "./StylesHome";
 import { Divider, Menu, Provider } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
 import { PropsStackNavigation } from "../../interfaces/StackNav";
-import {AppColors} from "../../theme/AppTheme";
+import { AppColors } from "../../theme/AppTheme";
 import ViewModel from "./HomeViewModel";
 
 const { width } = Dimensions.get("window");
 
 export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
-
     const [visible, setVisible] = useState(false);
     const [recipes, setRecipes] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -18,11 +17,26 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
     const [search, setSearch] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [selectedRecipe, setSelectedRecipe] = useState<any>(null);
+    const [favorites, setFavorites] = useState<Set<string>>(new Set()); // Estado para favoritos
 
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
 
-    const {deleteSession} = ViewModel.HomeViewModel();
+    const { deleteSession } = ViewModel.HomeViewModel();
+
+    // Función para agregar o quitar favoritos
+    const toggleFavorite = (id: string) => {
+        const newFavorites = new Set(favorites);
+        if (newFavorites.has(id)) {
+            newFavorites.delete(id);
+        } else {
+            newFavorites.add(id);
+        }
+        setFavorites(newFavorites);
+    };
+
+    // Función para verificar si una receta es favorita
+    const isFavorite = (id: string) => favorites.has(id);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -88,8 +102,7 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
     return (
         <Provider>
             <View style={styles.container}>
-
-
+                {/* Header */}
                 <View style={styles.header}>
                     <Image
                         style={[styles.logo, { width: width * 0.15, height: width * 0.15 }]}
@@ -120,11 +133,13 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                         />
                     </Menu>
                 </View>
+
+                {/* Welcome Text */}
                 <Text style={[styles.welcomeText, { fontSize: width * 0.05, overflow: "hidden" }]}>
                     Welcome, Name
                 </Text>
 
-
+                {/* Categories Scroll */}
                 <ScrollView
                     horizontal
                     style={styles.categoryScroll}
@@ -153,7 +168,7 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                     ))}
                 </ScrollView>
 
-
+                {/* Search Bar */}
                 <View style={styles.searchContainer}>
                     <MaterialIcons name="search" size={24} color="black" style={styles.searchIcon} />
                     <TextInput
@@ -168,7 +183,7 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                     </TouchableOpacity>
                 </View>
 
-
+                {/* Recipes FlatList */}
                 <FlatList
                     data={recipes}
                     keyExtractor={(item) => item.idMeal}
@@ -179,6 +194,17 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                         >
                             <Image source={{ uri: item.strMealThumb }} style={styles.cardImage} />
                             <Text style={styles.cardTitle}>{item.strMeal}</Text>
+                            {/* Botón de favoritos en la tarjeta */}
+                            <TouchableOpacity
+                                style={styles.favoriteButton}
+                                onPress={() => toggleFavorite(item.idMeal)}
+                            >
+                                <MaterialIcons
+                                    name={isFavorite(item.idMeal) ? "favorite" : "favorite-border"}
+                                    size={24}
+                                    color={isFavorite(item.idMeal) ? AppColors.rojo : "black"}
+                                />
+                            </TouchableOpacity>
                         </TouchableOpacity>
                     )}
                     horizontal={true}
@@ -186,7 +212,7 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                     contentContainerStyle={styles.horizontalCardWrapper}
                 />
 
-
+                {/* Modal de detalles de la receta */}
                 {showModal && (
                     <Modal
                         visible={showModal}
@@ -198,6 +224,17 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                             <View style={styles.modalContainer}>
                                 <ScrollView>
                                     <Text style={styles.modalTitle}>{selectedRecipe?.strMeal}</Text>
+                                    {/* Botón de favoritos en el modal */}
+                                    <TouchableOpacity
+                                        style={styles.favoriteButton}
+                                        onPress={() => toggleFavorite(selectedRecipe.idMeal)}
+                                    >
+                                        <MaterialIcons
+                                            name={isFavorite(selectedRecipe.idMeal) ? "favorite" : "favorite-border"}
+                                            size={24}
+                                            color={isFavorite(selectedRecipe.idMeal) ? AppColors.rojo : "black"}
+                                        />
+                                    </TouchableOpacity>
                                     <View style={styles.descriptionContainer}>
                                         <Text style={styles.descriptionTitle}>Description</Text>
                                         <Text style={styles.descriptionText}>
