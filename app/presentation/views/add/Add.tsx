@@ -6,6 +6,7 @@ import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { PropsStackNavigation } from "../../interfaces/StackNav";
 import { MultiSelect } from "react-native-element-dropdown";
 import * as ImagePicker from 'expo-image-picker';
+import ViewModel from "../add/AddViewModel";
 
 const { width, height } = Dimensions.get('window');
 
@@ -27,6 +28,9 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
 
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
+
+    const {deleteSession} = ViewModel.AddViewModel();
+
 
     const renderItem = (item: { label: string, value: string }) => {
         return (
@@ -83,7 +87,13 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
                         <Menu.Item onPress={() => alert('Hola:D')} title="Hola:D" />
                         <Menu.Item onPress={() => alert('jaja')} title="jaja" />
                         <Divider />
-                        <Menu.Item onPress={() => navigation.navigate("WelcomeScreen")} title="Logout" />
+                        <Menu.Item
+                            onPress={() => {
+                                deleteSession();
+                                navigation.navigate("WelcomeScreen");
+                            }}
+                            title="Logout"
+                        />
                     </Menu>
                 </View>
 
