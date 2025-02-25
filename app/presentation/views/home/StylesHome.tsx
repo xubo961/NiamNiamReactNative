@@ -237,6 +237,16 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
 
+    favoriteButton: {
+        position: "absolute",
+        top: 10,
+        right: 10,
+        backgroundColor: "rgba(255, 255, 255, 0.7)",
+        borderRadius: 20,
+        padding: 5,
+    },
+
+
 
 });
 
