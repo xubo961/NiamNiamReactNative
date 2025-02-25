@@ -1,38 +1,36 @@
-import { StyleSheet } from "react-native";
-import {AppColors} from "../../theme/AppTheme";
-import {FavouritesScreen} from "./Favourites";
+import { StyleSheet, Dimensions } from "react-native";
+import { AppColors } from "../../theme/AppTheme";
 
+const { width } = Dimensions.get("window");
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: "#FFF8E7",
+        backgroundColor: AppColors.background,
         flex: 1,
         paddingHorizontal: 20,
-        paddingTop: 10,
+        paddingTop: 60,
     },
-    headerContainer: {
+    header: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
         paddingBottom: 15,
     },
     logo: {
-        width: 50,
-        height: 50,
+        // Se sobreescribe el ancho y alto de forma dinámica en el componente
         resizeMode: "contain",
     },
     title: {
-        fontSize: 18,
+        // Se sobreescribe el tamaño de fuente de forma dinámica en el componente
+        fontWeight: "bold",
+        color: AppColors.text,
         textAlign: "center",
-        marginVertical: 15,
-        fontWeight: "500",
-        width:"70%",
     },
     welcome: {
         fontSize: 16,
         color: "#333",
         textAlign: "center",
-        paddingBottom:25,
+        paddingBottom: 25,
     },
     searchContainer: {
         flexDirection: "row",
@@ -57,10 +55,6 @@ export default StyleSheet.create({
         marginRight: 8,
     },
     menuContainer: {
-        // Ajusta si necesitas margen o padding adicional
-    }
-
-
+        // Puedes ajustar márgenes o paddings adicionales si lo requieres
+    },
 });
-
-

@@ -9,19 +9,19 @@ import {
     FlatList,
     Modal,
     ScrollView,
-    Linking
+    Linking,
+    Alert,
 } from "react-native";
 import styles from "./StylesHome";
 import { Divider, Menu, Provider } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
 import { PropsStackNavigation } from "../../interfaces/StackNav";
-import {AppColors} from "../../theme/AppTheme";
+import { AppColors } from "../../theme/AppTheme";
 import ViewModel from "./HomeViewModel";
 
 const { width } = Dimensions.get("window");
 
 export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
-
     const [visible, setVisible] = useState(false);
     const [recipes, setRecipes] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -33,22 +33,26 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
 
-    const {deleteSession} = ViewModel.HomeViewModel();
+    const { deleteSession } = ViewModel.HomeViewModel();
 
     const openUrlBo = () => {
-        Linking.openURL('https://github.com/xubo961/')
-            .catch(err => console.error("Error al intentar abrir la URL: ", err));
+        Linking.openURL("https://github.com/xubo961/").catch((err) =>
+            console.error("Error opening URL: ", err)
+        );
     };
 
     const openUrlSantiago = () => {
-        Linking.openURL('https://github.com/SNgomez27')
-            .catch(err => console.error("Error al intentar abrir la URL: ", err));
+        Linking.openURL("https://github.com/SNgomez27").catch((err) =>
+            console.error("Error opening URL: ", err)
+        );
     };
 
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await fetch("https://www.themealdb.com/api/json/v1/1/categories.php");
+                const response = await fetch(
+                    "https://www.themealdb.com/api/json/v1/1/categories.php"
+                );
                 const data = await response.json();
                 setCategories(data.categories || []);
             } catch (error) {
@@ -86,31 +90,79 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
         }
     };
 
-    const fetchAllRecipes = async () => {
+    // Función para buscar recetas por múltiples ingredientes
+    const fetchRecipesByIngredients = async (ingredientsStr: string) => {
+        // Separa la cadena de ingredientes por comas, elimina espacios y filtra las cadenas vacías
+        const ingredientArray = ingredientsStr
+            .split(",")
+            .map((ing) => ing.trim())
+            .filter((ing) => ing !== "");
+
+        if (ingredientArray.length === 0) {
+            Alert.alert("Please enter at least one ingredient");
+            return;
+        }
+
         try {
-            if (search.trim() === "") {
-                const response = await fetch(
-                    `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`
+            // Realiza una llamada a la API para cada ingrediente usando el endpoint de filtrado por ingrediente
+            const allResults = await Promise.all(
+                ingredientArray.map(async (ing) => {
+                    const response = await fetch(
+                        `https://www.themealdb.com/api/json/v1/1/filter.php?i=${encodeURIComponent(
+                            ing
+                        )}`
+                    );
+                    const data = await response.json();
+                    // Devuelve un arreglo vacío si no hay resultados
+                    return data.meals || [];
+                })
+            );
+
+            // Calcula la intersección: conserva solo las recetas presentes en todos los resultados de búsqueda
+            let intersection = allResults[0];
+            for (let i = 1; i < allResults.length; i++) {
+                intersection = intersection.filter((meal) =>
+                    allResults[i].some((m) => m.idMeal === meal.idMeal)
                 );
-                const data = await response.json();
-                setRecipes(data.meals || []);
-            } else {
-                const response = await fetch(
-                    `https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`
-                );
-                const data = await response.json();
-                setRecipes(data.meals || []);
             }
+
+            if (intersection.length === 0) {
+                Alert.alert("No recipes found for the selected ingredients");
+            }
+            setRecipes(intersection);
         } catch (error) {
-            console.error("Error fetching recipes:", error);
+            console.error("Error fetching recipes by ingredients:", error);
+        }
+    };
+
+    // Modifica fetchAllRecipes para verificar si se utilizan múltiples ingredientes
+    const fetchAllRecipes = async () => {
+        if (search.includes(",")) {
+            await fetchRecipesByIngredients(search);
+        } else {
+            try {
+                if (search.trim() === "") {
+                    const response = await fetch(
+                        `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`
+                    );
+                    const data = await response.json();
+                    setRecipes(data.meals || []);
+                } else {
+                    const response = await fetch(
+                        `https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`
+                    );
+                    const data = await response.json();
+                    setRecipes(data.meals || []);
+                }
+            } catch (error) {
+                console.error("Error fetching recipes:", error);
+            }
         }
     };
 
     return (
         <Provider>
             <View style={styles.container}>
-
-
                 <View style={styles.header}>
                     <Image
                         style={[styles.logo, { width: width * 0.15, height: width * 0.15 }]}
@@ -128,8 +180,8 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                             </TouchableOpacity>
                         }
                     >
-                        <Menu.Item onPress={() => {openUrlBo()}} title="About Bo" />
-                        <Menu.Item onPress={() => {openUrlSantiago()}} title="About Santiago" />
+                        <Menu.Item onPress={openUrlBo} title="About Bo" />
+                        <Menu.Item onPress={openUrlSantiago} title="About Santiago" />
                         <Divider />
                         <Menu.Item
                             onPress={() => {
@@ -140,10 +192,14 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                         />
                     </Menu>
                 </View>
-                <Text style={[styles.welcomeText, { fontSize: width * 0.05, overflow: "hidden" }]}>
+                <Text
+                    style={[
+                        styles.welcomeText,
+                        { fontSize: width * 0.05, overflow: "hidden" },
+                    ]}
+                >
                     Welcome, Name
                 </Text>
-
 
                 <ScrollView
                     horizontal
@@ -160,7 +216,8 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                             <Text
                                 style={[
                                     styles.categoryText,
-                                    selectedCategory === category.strCategory && styles.activeCategoryText,
+                                    selectedCategory === category.strCategory &&
+                                    styles.activeCategoryText,
                                 ]}
                                 numberOfLines={1}
                             >
@@ -173,9 +230,13 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                     ))}
                 </ScrollView>
 
-
                 <View style={styles.searchContainer}>
-                    <MaterialIcons name="search" size={24} color="black" style={styles.searchIcon} />
+                    <MaterialIcons
+                        name="search"
+                        size={24}
+                        color="black"
+                        style={styles.searchIcon}
+                    />
                     <TextInput
                         style={styles.searchInput}
                         placeholder="Search..."
@@ -187,7 +248,6 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                         <Text style={{ color: AppColors.rojo, marginRight: 10 }}>Search</Text>
                     </TouchableOpacity>
                 </View>
-
 
                 <FlatList
                     data={recipes}
@@ -206,7 +266,6 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                     contentContainerStyle={styles.horizontalCardWrapper}
                 />
 
-
                 {showModal && (
                     <Modal
                         visible={showModal}
@@ -222,10 +281,14 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                                         <Text style={styles.descriptionTitle}>Description</Text>
                                         <Text style={styles.descriptionText}>
                                             <Text style={styles.boldText}>Ingredients:</Text> {"\n"}
-                                            {selectedRecipe?.strIngredient1 && `• ${selectedRecipe.strIngredient1}`}{"\n"}
-                                            {selectedRecipe?.strIngredient2 && `• ${selectedRecipe.strIngredient2}`}{"\n"}
-                                            {selectedRecipe?.strIngredient3 && `• ${selectedRecipe.strIngredient3}`}{"\n"}
-                                            {selectedRecipe?.strIngredient4 && `• ${selectedRecipe.strIngredient4}`}{"\n"}
+                                            {selectedRecipe?.strIngredient1 &&
+                                                `• ${selectedRecipe.strIngredient1}`}{"\n"}
+                                            {selectedRecipe?.strIngredient2 &&
+                                                `• ${selectedRecipe.strIngredient2}`}{"\n"}
+                                            {selectedRecipe?.strIngredient3 &&
+                                                `• ${selectedRecipe.strIngredient3}`}{"\n"}
+                                            {selectedRecipe?.strIngredient4 &&
+                                                `• ${selectedRecipe.strIngredient4}`}{"\n"}
                                             {"\n"}
                                             <Text style={styles.boldText}>Preparation:</Text> {"\n"}
                                             {selectedRecipe?.strInstructions}

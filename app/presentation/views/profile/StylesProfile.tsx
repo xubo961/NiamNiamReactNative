@@ -1,57 +1,60 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+import {AppColors} from "../../theme/AppTheme";
+
+const { width } = Dimensions.get("window");
 
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#FFF9E6",
+        backgroundColor: AppColors.background,
         paddingHorizontal: 16,
-        paddingTop: 40,
+        paddingTop: 60,
     },
-    headerContainer: {
+    header: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
         marginBottom: 16,
     },
     logo: {
-        width: 50,
-        height: 50,
+        // Las dimensiones dinámicas se establecen en el componente
+        resizeMode: "contain",
     },
     title: {
-        fontSize: 20,
         fontWeight: "bold",
         color: "#000",
+        textAlign: "center",
     },
     menuContainer: {
-    paddingStart:20
+        paddingStart: 20,
     },
     usernameContainer: {
-        backgroundColor: "#FDEBCD",
+        backgroundColor: AppColors.backgroundPopUp,
         borderRadius: 25,
         padding: 16,
         marginBottom: 8,
-        marginLeft:90,
-        width:"50%",
+        marginLeft: 90,
+        width: "50%",
         alignItems: "center",
     },
     usernameText: {
         fontSize: 16,
         fontWeight: "bold",
         color: "#000",
-        textAlign:"center",
+        textAlign: "center",
     },
     descriptionContainer: {
-        backgroundColor: "#FDEBCD",
+        backgroundColor: AppColors.backgroundPopUp,
         borderRadius: 25,
         padding: 16,
         marginBottom: 16,
-        height: "auto",
         width: "90%",
-        marginLeft:20,
-        marginTop:8
+        marginLeft: 20,
+        marginTop: 8,
     },
     descriptionText: {
-        fontSize: 14,
+        fontWeight: "bold",
+        fontSize: 16,
         color: "#000",
         textAlign: "center",
     },
@@ -61,23 +64,28 @@ export default StyleSheet.create({
         marginBottom: 8,
         marginTop: 8,
         color: "#000",
-        textAlign:"center",
+        backgroundColor: AppColors.backgroundPopUp,
+        width: "50%",
+        marginStart: 90,
+        textAlign: "center",
+        borderRadius: 35,
+
     },
     recipesContainer: {
         flexDirection: "row",
-        flexWrap: "wrap", // Permite que se distribuya en varias filas
+        flexWrap: "wrap",
         justifyContent: "space-between",
-        paddingBottom: 16, // Un poco de espacio extra al final
+        paddingBottom: 16,
     },
     recipeItem: {
-        width: "48%", // Para que quepan 2 por fila
+        width: "48%",
         alignItems: "center",
         marginBottom: 16,
     },
     recipeImage: {
         width: 100,
         height: 100,
-        borderRadius: 50, // Circular
+        borderRadius: 50,
         marginBottom: 8,
     },
     recipeTitle: {
@@ -89,7 +97,7 @@ export default StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        marginTop: "auto",  // Empuja el footer al final
+        marginTop: "auto",
         marginBottom: 16,
     },
 });
