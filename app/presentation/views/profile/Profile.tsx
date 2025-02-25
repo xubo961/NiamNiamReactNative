@@ -23,13 +23,11 @@ export const ProfileScreen = ({ navigation }: PropsStackNavigation) => {
 
                 {/* HEADER */}
                 <View style={styles.headerContainer}>
-                    {/* (Opcional) Logo o ícono en la izquierda */}
                     <Image
                         source={require("../../../../assets/logoniamniam.png")}
                         style={styles.logo}
                     />
 
-                    {/* Título en el centro */}
                     <Text style={styles.title}>PROFILE</Text>
 
                     {/* Menú de 3 puntos (MaterialIcons) */}
@@ -71,30 +69,6 @@ export const ProfileScreen = ({ navigation }: PropsStackNavigation) => {
 
                 {/* GRID de recetas (4 ejemplos) */}
                 <ScrollView contentContainerStyle={styles.recipesContainer}>
-                    <View style={styles.recipeItem}>
-                        <Image
-                            source={{ uri: "https://example.com/pollo-al-limon.jpg" }}
-                            style={styles.recipeImage}
-                        />
-                        <Text style={styles.recipeTitle}>Pollo al limón</Text>
-                    </View>
-
-                    <View style={styles.recipeItem}>
-                        <Image
-                            source={{ uri: "https://example.com/pollo-al-limon.jpg" }}
-                            style={styles.recipeImage}
-                        />
-                        <Text style={styles.recipeTitle}>Pollo al limón</Text>
-                    </View>
-
-                    <View style={styles.recipeItem}>
-                        <Image
-                            source={{ uri: "https://example.com/pollo-al-limon.jpg" }}
-                            style={styles.recipeImage}
-                        />
-                        <Text style={styles.recipeTitle}>Pollo al limón</Text>
-                    </View>
-
                     <View style={styles.recipeItem}>
                         <Image
                             source={{ uri: "https://example.com/pollo-al-limon.jpg" }}

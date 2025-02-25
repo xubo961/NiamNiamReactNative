@@ -23,9 +23,10 @@ export default StyleSheet.create({
     },
     title: {
         fontSize: 18,
-        alignContent: "center",
+        textAlign: "center",
         marginVertical: 15,
         fontWeight: "500",
+        width:"70%",
     },
     welcome: {
         fontSize: 16,
@@ -55,6 +56,9 @@ export default StyleSheet.create({
     searchIcon: {
         marginRight: 8,
     },
+    menuContainer: {
+        // Ajusta si necesitas margen o padding adicional
+    }
 
 
 });

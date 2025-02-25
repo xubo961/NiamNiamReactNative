@@ -200,6 +200,7 @@ const styles = StyleSheet.create({
         height: 120,
         width: '100%',
         fontSize: 16,
+        borderRadius: 15,
         backgroundColor: AppColors.amarillo,
     },
     saveButton: {

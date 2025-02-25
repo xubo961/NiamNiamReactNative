@@ -23,26 +23,32 @@ export default StyleSheet.create({
         color: "#000",
     },
     menuContainer: {
-        // Ajusta si necesitas margen o padding adicional
+    paddingStart:20
     },
     usernameContainer: {
         backgroundColor: "#FDEBCD",
         borderRadius: 25,
         padding: 16,
         marginBottom: 8,
-        paddingStart:30
+        marginLeft:90,
+        width:"50%",
+        alignItems: "center",
     },
     usernameText: {
         fontSize: 16,
         fontWeight: "bold",
         color: "#000",
-        textAlign:"center"
+        textAlign:"center",
     },
     descriptionContainer: {
         backgroundColor: "#FDEBCD",
         borderRadius: 25,
         padding: 16,
         marginBottom: 16,
+        height: "auto",
+        width: "90%",
+        marginLeft:20,
+        marginTop:8
     },
     descriptionText: {
         fontSize: 14,
@@ -53,7 +59,9 @@ export default StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
         marginBottom: 8,
+        marginTop: 8,
         color: "#000",
+        textAlign:"center",
     },
     recipesContainer: {
         flexDirection: "row",
