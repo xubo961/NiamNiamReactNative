@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
-import { Image, Text, TextInput, TouchableOpacity, View, Dimensions, FlatList, Modal, ScrollView } from "react-native";
-=======
+import React, {useState, useEffect} from "react";
 import {
     Image,
     Text,
@@ -14,17 +11,16 @@ import {
     ScrollView,
     Linking
 } from "react-native";
->>>>>>> e57b31f8bc4c25a243f801fd54d1ba65e69a6a15
 import styles from "./StylesHome";
-import { Divider, Menu, Provider } from "react-native-paper";
-import { MaterialIcons } from "@expo/vector-icons";
-import { PropsStackNavigation } from "../../interfaces/StackNav";
-import { AppColors } from "../../theme/AppTheme";
+import {Divider, Menu, Provider} from "react-native-paper";
+import {MaterialIcons} from "@expo/vector-icons";
+import {PropsStackNavigation} from "../../interfaces/StackNav";
+import {AppColors} from "../../theme/AppTheme";
 import ViewModel from "./HomeViewModel";
 
-const { width } = Dimensions.get("window");
+const {width} = Dimensions.get("window");
 
-export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
+export const HomeScreen = ({navigation}: PropsStackNavigation) => {
     const [visible, setVisible] = useState(false);
     const [recipes, setRecipes] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -32,25 +28,13 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
     const [search, setSearch] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [selectedRecipe, setSelectedRecipe] = useState<any>(null);
-    const [favorites, setFavorites] = useState<Set<string>>(new Set()); // Estado para favoritos
+    const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
 
-    const { deleteSession } = ViewModel.HomeViewModel();
+    const {deleteSession} = ViewModel.HomeViewModel();
 
-    // Función para agregar o quitar favoritos
-    const toggleFavorite = (id: string) => {
-        const newFavorites = new Set(favorites);
-        if (newFavorites.has(id)) {
-            newFavorites.delete(id);
-        } else {
-            newFavorites.add(id);
-        }
-        setFavorites(newFavorites);
-    };
-
-    // Función para verificar si una receta es favorita
     const isFavorite = (id: string) => favorites.has(id);
 
     const openUrlBo = () => {
@@ -127,27 +111,28 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
     return (
         <Provider>
             <View style={styles.container}>
-                {/* Header */}
                 <View style={styles.header}>
                     <Image
-                        style={[styles.logo, { width: width * 0.15, height: width * 0.15 }]}
+                        style={[styles.logo, {width: width * 0.15, height: width * 0.15}]}
                         source={require("../../../../assets/logoniamniam.png")}
                     />
-                    <Text style={[styles.title, { fontSize: width * 0.06, flexShrink: 1 }]}>
-                        What’s for eat?
-                    </Text>
+                    <Text style={[styles.title, {fontSize: width * 0.06, flexShrink: 1}]}>What’s for eat?</Text>
                     <Menu
                         visible={visible}
                         onDismiss={closeMenu}
                         anchor={
                             <TouchableOpacity onPress={openMenu}>
-                                <MaterialIcons name="more-vert" size={30} color="black" />
+                                <MaterialIcons name="more-vert" size={30} color="black"/>
                             </TouchableOpacity>
                         }
                     >
-                        <Menu.Item onPress={() => {openUrlBo()}} title="About Bo" />
-                        <Menu.Item onPress={() => {openUrlSantiago()}} title="About Santiago" />
-                        <Divider />
+                        <Menu.Item onPress={() => {
+                            openUrlBo()
+                        }} title="About Bo"/>
+                        <Menu.Item onPress={() => {
+                            openUrlSantiago()
+                        }} title="About Santiago"/>
+                        <Divider/>
                         <Menu.Item
                             onPress={() => {
                                 deleteSession();
@@ -158,12 +143,8 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                     </Menu>
                 </View>
 
-                {/* Welcome Text */}
-                <Text style={[styles.welcomeText, { fontSize: width * 0.05, overflow: "hidden" }]}>
-                    Welcome, Name
-                </Text>
+                <Text style={[styles.welcomeText, {fontSize: width * 0.05, overflow: "hidden"}]}>Welcome, Name</Text>
 
-                {/* Categories Scroll */}
                 <ScrollView
                     horizontal
                     style={styles.categoryScroll}
@@ -174,7 +155,7 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                         <TouchableOpacity
                             key={category.idCategory}
                             onPress={() => setSelectedCategory(category.strCategory)}
-                            style={[styles.categoryItem, { maxWidth: width * 0.3 }]}
+                            style={[styles.categoryItem, {maxWidth: width * 0.3}]}
                         >
                             <Text
                                 style={[
@@ -186,15 +167,14 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                                 {category.strCategory}
                             </Text>
                             {selectedCategory === category.strCategory && (
-                                <View style={styles.activeCategoryUnderline} />
+                                <View style={styles.activeCategoryUnderline}/>
                             )}
                         </TouchableOpacity>
                     ))}
                 </ScrollView>
 
-                {/* Search Bar */}
                 <View style={styles.searchContainer}>
-                    <MaterialIcons name="search" size={24} color="black" style={styles.searchIcon} />
+                    <MaterialIcons name="search" size={24} color="black" style={styles.searchIcon}/>
                     <TextInput
                         style={styles.searchInput}
                         placeholder="Search..."
@@ -203,26 +183,22 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                         onChangeText={(text) => setSearch(text)}
                     />
                     <TouchableOpacity onPress={fetchAllRecipes}>
-                        <Text style={{ color: AppColors.rojo, marginRight: 10 }}>Search</Text>
+                        <Text style={{color: AppColors.rojo, marginRight: 10}}>Search</Text>
                     </TouchableOpacity>
                 </View>
 
-                {/* Recipes FlatList */}
                 <FlatList
                     data={recipes}
                     keyExtractor={(item) => item.idMeal}
-                    renderItem={({ item }) => (
+                    renderItem={({item}) => (
                         <TouchableOpacity
                             onPress={() => fetchRecipeDetails(item.idMeal)}
                             style={styles.card}
                         >
-                            <Image source={{ uri: item.strMealThumb }} style={styles.cardImage} />
+                            <Image source={{uri: item.strMealThumb}} style={styles.cardImage}/>
                             <Text style={styles.cardTitle}>{item.strMeal}</Text>
-                            {/* Botón de favoritos en la tarjeta */}
                             <TouchableOpacity
-                                style={styles.favoriteButton}
-                                onPress={() => toggleFavorite(item.idMeal)}
-                            >
+                                style={styles.favoriteButton}>
                                 <MaterialIcons
                                     name={isFavorite(item.idMeal) ? "favorite" : "favorite-border"}
                                     size={24}
@@ -236,7 +212,6 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                     contentContainerStyle={styles.horizontalCardWrapper}
                 />
 
-                {/* Modal de detalles de la receta */}
                 {showModal && (
                     <Modal
                         visible={showModal}
@@ -248,11 +223,8 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                             <View style={styles.modalContainer}>
                                 <ScrollView>
                                     <Text style={styles.modalTitle}>{selectedRecipe?.strMeal}</Text>
-                                    {/* Botón de favoritos en el modal */}
                                     <TouchableOpacity
-                                        style={styles.favoriteButton}
-                                        onPress={() => toggleFavorite(selectedRecipe.idMeal)}
-                                    >
+                                        style={styles.favoriteButton}>
                                         <MaterialIcons
                                             name={isFavorite(selectedRecipe.idMeal) ? "favorite" : "favorite-border"}
                                             size={24}
@@ -273,7 +245,7 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                                         </Text>
                                     </View>
                                     <Image
-                                        source={{ uri: selectedRecipe?.strMealThumb }}
+                                        source={{uri: selectedRecipe?.strMealThumb}}
                                         style={styles.modalRecipeImage}
                                     />
                                 </ScrollView>
