@@ -1,74 +1,60 @@
-import { StyleSheet } from "react-native";
-import {AppColors} from "../../theme/AppTheme";
-import {FavouritesScreen} from "./Favourites";
+import { StyleSheet, Dimensions } from "react-native";
+import { AppColors } from "../../theme/AppTheme";
 
+const { width } = Dimensions.get("window");
 
 export default StyleSheet.create({
     container: {
+        backgroundColor: AppColors.background,
         flex: 1,
-        backgroundColor: "#FFF9E6", // Color de fondo similar al de la imagen
-        paddingHorizontal: 16,
-        paddingTop: 40,             // Margen superior
+        paddingHorizontal: 20,
+        paddingTop: 60,
     },
-    headerContainer: {
+    header: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        marginBottom: 16,
+        paddingBottom: 15,
     },
     logo: {
-        width: 50,
-        height: 50,
+        // Se sobreescribe el ancho y alto de forma dinámica en el componente
+        resizeMode: "contain",
     },
     title: {
-        fontSize: 20,
+        // Se sobreescribe el tamaño de fuente de forma dinámica en el componente
         fontWeight: "bold",
-        color: "#000",
+        color: AppColors.text,
         textAlign: "center",
     },
     welcome: {
         fontSize: 16,
         color: "#333",
         textAlign: "center",
-        paddingBottom:25,
+        paddingBottom: 25,
     },
     searchContainer: {
-        marginBottom: 16,
-        paddingEnd:30,
-        paddingStart:20,
-        paddingBottom:25,
-    },
-    searchInput: {
-        backgroundColor:AppColors.amarillo,
-        textDecorationColor:AppColors.rojo,
-        borderRadius: 8,
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: "#FDD835",
+        borderRadius: 25,
         paddingHorizontal: 12,
         paddingVertical: 8,
-        fontSize: 16,
-        color: "#000",
-        borderWidth: 1,
-        borderColor: "#ddd",
+        marginBottom: 30,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 3,
     },
-    dishesContainer: {
-        marginBottom: 16,
-        alignSelf: "center",
-    },
-    dishItem: {
-        width: 120,
-        alignItems: "center",
-        marginRight: 16,
-    },
-    dishImage: {
-        width: 80,
-        height: 80,
-        borderRadius: 40, // Para que se vea circular
-        marginBottom: 8,
-    },
-    dishText: {
+    searchInput: {
+        flex: 1,
         fontSize: 14,
-        textAlign: "center",
-        color: "#333",
+        color: "#000",
+    },
+    searchIcon: {
+        marginRight: 8,
+    },
+    menuContainer: {
+        // Puedes ajustar márgenes o paddings adicionales si lo requieres
     },
 });
-
-

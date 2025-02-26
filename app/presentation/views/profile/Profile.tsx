@@ -4,12 +4,16 @@ import {
     Text,
     Image,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    TextInput,
+    Dimensions
 } from "react-native";
 import { Divider, Menu, Provider } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
 import { PropsStackNavigation } from "../../interfaces/StackNav";
 import styles from "./StylesProfile";
+
+const { width } = Dimensions.get("window");
 
 export const ProfileScreen = ({ navigation }: PropsStackNavigation) => {
     const [visible, setVisible] = useState(false);
@@ -20,39 +24,33 @@ export const ProfileScreen = ({ navigation }: PropsStackNavigation) => {
     return (
         <Provider>
             <View style={styles.container}>
-
                 {/* HEADER */}
-                <View style={styles.headerContainer}>
-                    {/* (Opcional) Logo o ícono en la izquierda */}
+                <View style={styles.header}>
                     <Image
                         source={require("../../../../assets/logoniamniam.png")}
-                        style={styles.logo}
+                        style={[styles.logo, { width: width * 0.15, height: width * 0.15 }]}
                     />
-
-                    {/* Título en el centro */}
-                    <Text style={styles.title}>PROFILE</Text>
-
-                    {/* Menú de 3 puntos (MaterialIcons) */}
-                    <View style={styles.menuContainer}>
-                        <Menu
-                            visible={visible}
-                            onDismiss={closeMenu}
-                            anchor={
-                                <TouchableOpacity onPress={openMenu}>
-                                    <MaterialIcons name="more-vert" size={30} color="black" />
-                                </TouchableOpacity>
-                            }
-                        >
-                            <Menu.Item onPress={() => alert("Acerca de")} title="Acerca de" />
-                            <Menu.Item onPress={() => alert("Hola:D")} title="Hola:D" />
-                            <Menu.Item onPress={() => alert("jaja")} title="jaja" />
-                            <Divider />
-                            <Menu.Item
-                                onPress={() => navigation.navigate("WelcomeScreen")}
-                                title="Logout"
-                            />
-                        </Menu>
-                    </View>
+                    <Text style={[styles.title, { fontSize: width * 0.06, flexShrink: 1 }]}>
+                        Profile
+                    </Text>
+                    <Menu
+                        visible={visible}
+                        onDismiss={closeMenu}
+                        anchor={
+                            <TouchableOpacity onPress={openMenu}>
+                                <MaterialIcons name="more-vert" size={30} color="black" />
+                            </TouchableOpacity>
+                        }
+                    >
+                        <Menu.Item onPress={() => alert("Acerca de")} title="Acerca de" />
+                        <Menu.Item onPress={() => alert("Hola:D")} title="Hola:D" />
+                        <Menu.Item onPress={() => alert("jaja")} title="jaja" />
+                        <Divider />
+                        <Menu.Item
+                            onPress={() => navigation.navigate("WelcomeScreen")}
+                            title="Logout"
+                        />
+                    </Menu>
                 </View>
 
                 {/* NOMBRE DE USUARIO */}
@@ -63,12 +61,13 @@ export const ProfileScreen = ({ navigation }: PropsStackNavigation) => {
                 {/* DESCRIPCIÓN */}
                 <View style={styles.descriptionContainer}>
                     <Text style={styles.descriptionText}>Description</Text>
+                    <TextInput placeholder={"Description..."} />
                 </View>
 
                 {/* SECCIÓN: "Tus recetas" */}
                 <Text style={styles.sectionTitle}>Tus recetas</Text>
 
-                {/* GRID de recetas (4 ejemplos) */}
+                {/* GRID de recetas */}
                 <ScrollView contentContainerStyle={styles.recipesContainer}>
                     <View style={styles.recipeItem}>
                         <Image
@@ -77,33 +76,7 @@ export const ProfileScreen = ({ navigation }: PropsStackNavigation) => {
                         />
                         <Text style={styles.recipeTitle}>Pollo al limón</Text>
                     </View>
-
-                    <View style={styles.recipeItem}>
-                        <Image
-                            source={{ uri: "https://example.com/pollo-al-limon.jpg" }}
-                            style={styles.recipeImage}
-                        />
-                        <Text style={styles.recipeTitle}>Pollo al limón</Text>
-                    </View>
-
-                    <View style={styles.recipeItem}>
-                        <Image
-                            source={{ uri: "https://example.com/pollo-al-limon.jpg" }}
-                            style={styles.recipeImage}
-                        />
-                        <Text style={styles.recipeTitle}>Pollo al limón</Text>
-                    </View>
-
-                    <View style={styles.recipeItem}>
-                        <Image
-                            source={{ uri: "https://example.com/pollo-al-limon.jpg" }}
-                            style={styles.recipeImage}
-                        />
-                        <Text style={styles.recipeTitle}>Pollo al limón</Text>
-                    </View>
                 </ScrollView>
-
-
             </View>
         </Provider>
     );

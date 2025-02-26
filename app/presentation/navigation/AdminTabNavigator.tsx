@@ -14,7 +14,7 @@ export const AdminTabNavigator = () => {
             tabBarActiveTintColor: AppColors.rojo,
             tabBarInactiveTintColor: AppColors.grisOscuro,
             tabBarLabel: () => null,
-            headerShown: true,
+            headerShown: false,
             tabBarStyle: {
                 backgroundColor: AppColors.background,
             },
