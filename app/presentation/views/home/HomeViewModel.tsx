@@ -1,46 +1,75 @@
-import {deleteUserUseCase} from "../../../domain/useCases/userLocal/DeleteUser";
-import {deleteFavCase} from "../../../domain/useCases/fav/deleteFav";
-import {ApiDeliveryResponse} from "../../../data/sources/remote/models/ResponseApiDelivery";
-import {FavoritosRecetaInterface} from "../../../domain/entities/FavoritosReceta";
-import {UserInterface} from "../../../domain/entities/User";
-import {addFavCase} from "../../../domain/useCases/fav/addFav";
+import { deleteUserUseCase } from "../../../domain/useCases/userLocal/DeleteUser";
+import { RemoveRecetaDeFavoritosUseCase } from "../../../domain/useCases/fav/RemoveRecetaDeFavorito";
+import { FavoritosInterface } from "../../../domain/entities/FavoritosReceta";
+import { GetFavoritosByUsuarioUseCase } from "../../../domain/useCases/fav/GetFavoritosByUsuario";
+import { useEffect, useState } from "react";
+import { AddFavoritos } from "../../../domain/useCases/fav/AddFavorito";
+import { useUserLocalStorage } from "../../hooks/useUserLocalStorage";
 
-export const HomeViewModel =  () => {
-    const deleteSession = async () => {
-        await deleteUserUseCase();
-    }
+export const HomeViewModel = () => {
+    const [favoritos, setFavoritos] = useState<FavoritosInterface[]>([]);
+    const [errorMessage, setErrorMessage] = useState("");
+    const { user, getUserSession } = useUserLocalStorage();
 
-    const addFavorite = async (
-        user: UserInterface,
-        receta: FavoritosRecetaInterface
-    ): Promise<ApiDeliveryResponse> => {
-        try {
-            const response = await addFavCase(user, receta);
-            return response;
-        } catch (error) {
-            console.error("Error adding favorite:", error);
-            throw error;
+    useEffect(() => {
+        const fetchUserAndFavoritos = async () => {
+            await getUserSession(); // Asegurar que el usuario está cargado
+        };
+        fetchUserAndFavoritos();
+    }, []);
+
+    useEffect(() => {
+        if (user && user.id) {
+            loadFavoritos(user.id);
+        }
+    }, [user]);
+
+    const loadFavoritos = async (usuarioId: number) => {
+        const response = await GetFavoritosByUsuarioUseCase(usuarioId);
+        if (!response.success) {
+            setErrorMessage(response.message);
+        } else {
+            setFavoritos(response.data);
         }
     };
 
-    const deleteFavorite = async (
-        user: UserInterface,
-        receta: FavoritosRecetaInterface
-    ): Promise<ApiDeliveryResponse> => {
-        try {
-            const response = await deleteFavCase(user, receta);
-            return response;
-        } catch (error) {
-            console.error("Error deleting favorite:", error);
-            throw error;
+    const addFavorito = async (receta: FavoritosInterface) => {
+        if (!user || !user.id) return;
+        const response = await AddFavoritos(receta);
+        if (!response.success) {
+            setErrorMessage(response.message);
+        } else {
+            await loadFavoritos(user.id);
         }
+    };
+
+    const removeFavorito = async (recetaId: number) => {
+        if (!user || !user.id) return;
+        const response = await RemoveRecetaDeFavoritosUseCase(user.id, recetaId);
+        if (!response.success) {
+            setErrorMessage(response.message);
+        } else {
+            await loadFavoritos(user.id);
+        }
+    };
+
+    const isFavorite = (recetaId: number) => {
+        return favoritos.some(fav => fav.idReceta === recetaId);
+    };
+
+    const deleteSession = async () => {
+        await deleteUserUseCase();
     };
 
     return {
-        addFavorite,
-        deleteFavorite,
-        deleteSession
+        deleteSession,
+        favoritos,
+        errorMessage,
+        loadFavoritos,
+        addFavorito,
+        removeFavorito,
+        isFavorite
     };
-}
+};
 
-export default {HomeViewModel};
+export default { HomeViewModel };
