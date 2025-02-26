@@ -246,11 +246,6 @@ const styles = StyleSheet.create({
         padding: 5,
     },
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 03eb4aaf112abc531abde0b062d3df888187340b
-
 });
 
 export default styles;

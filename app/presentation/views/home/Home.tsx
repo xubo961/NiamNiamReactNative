@@ -200,14 +200,6 @@ export const HomeScreen = ({navigation}: PropsStackNavigation) => {
                         />
                     </Menu>
                 </View>
-                <Text
-                    style={[
-                        styles.welcomeText,
-                        { fontSize: width * 0.05, overflow: "hidden" },
-                    ]}
-                >
-                    Welcome, Name
-                </Text>
 
                 <Text style={[styles.welcomeText, {fontSize: width * 0.05, overflow: "hidden"}]}>Welcome, Name</Text>
 
