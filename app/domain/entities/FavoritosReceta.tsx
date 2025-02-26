@@ -1,6 +1,6 @@
 
-export interface FavoritosRecetaInterface {
-    id: number;
+export interface FavoritosInterface {
+    idReceta: number;
     nameReceta: string;
     ingredientsReceta: string;
     preparationReceta: string;

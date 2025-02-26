@@ -11,14 +11,18 @@ import ViewModel from "../add/AddViewModel";
 const { width, height } = Dimensions.get('window');
 
 const data = [
-    { label: 'Huevo', value: 'Huevo' },
-    { label: 'Harina', value: 'Harina' },
-    { label: 'Aceite', value: 'Aceite' },
-    { label: 'Carne', value: 'Carne' },
-    { label: 'Lechuga', value: 'Lechuga' },
-    { label: 'Leche', value: 'Leche' },
-    { label: 'Azúcar', value: 'Azúcar' },
-    { label: 'Mayonesa', value: 'Mayonesa' },
+    { label: 'Egg', value: 'Egg' },
+    { label: 'Beef', value: 'Beef' },
+    { label: 'Rice', value: 'Rice' },
+    { label: 'Chicken', value: 'Chicken' },
+    { label: 'Potatoes', value: 'Potatoes' },
+    { label: 'Pork', value: 'Pork' },
+    { label: 'Salmon', value: 'Salmon' },
+    { label: 'Spaghetti', value: 'Spaghetti' },
+    { label: 'Onion', value: 'Onion' },
+    { label: 'Sausages', value: 'Sausages' },
+    { label: 'Banana', value: 'Banana' },
+    { label: 'Avocado', value: 'Avocado' },
 ];
 
 export const AddScreen = ({ navigation }: PropsStackNavigation) => {

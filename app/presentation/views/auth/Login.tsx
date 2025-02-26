@@ -64,6 +64,8 @@ export function LoginScreen({navigation}: PropsStackNavigation) {
                 <View style={{width: '100%', marginTop: "auto"}}>
                     <RoundedButton text={"Log In"} onPressFromInterface={() => {
                         login()
+                        // navigation.navigate("AdminTabNavigator")
+
                     }}/>
                 </View>
                 <Text style={styles.forgotPassword}>Forgot password?</Text>

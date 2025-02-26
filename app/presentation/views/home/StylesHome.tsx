@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         backgroundColor: AppColors.background,
         flex: 1,
         paddingHorizontal: width * 0.05,
-        paddingTop: 10,
+        paddingTop: 60,
     },
 
     header: {
@@ -245,11 +245,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 5,
     },
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 03eb4aaf112abc531abde0b062d3df888187340b
 
 });
 

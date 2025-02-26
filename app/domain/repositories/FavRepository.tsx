@@ -1,8 +1,11 @@
+import {FavoritosInterface} from "../entities/FavoritosReceta";
 import {ApiDeliveryResponse} from "../../data/sources/remote/models/ResponseApiDelivery";
-import {FavoritosRecetaInterface} from "../entities/FavoritosReceta";
-import {UserInterface} from "../entities/User";
 
 export interface FavRepository {
-    addFav: (user: UserInterface,favoritosReceta: FavoritosRecetaInterface) => Promise<ApiDeliveryResponse>;
-    deleteFav: (user: UserInterface, favoritosReceta: FavoritosRecetaInterface) => Promise<ApiDeliveryResponse>;
+    addFavorito: (favorito: FavoritosInterface) => Promise<ApiDeliveryResponse>;
+    getAllFavoritos: () => Promise<ApiDeliveryResponse>;
+    getFavoritoById: (id: number) => Promise<ApiDeliveryResponse>;
+    getFavoritosByUsuario: (usuarioId: number) => Promise<ApiDeliveryResponse>;
+    addRecetaAFavoritos: (usuarioId: number, recetaId: number) => Promise<ApiDeliveryResponse>;
+    removeRecetaDeFavoritos: (usuarioId: number, recetaId: number) => Promise<ApiDeliveryResponse>;
 }
