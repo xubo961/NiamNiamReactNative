@@ -5,6 +5,7 @@ import { GetFavoritosByUsuarioUseCase } from "../../../domain/useCases/fav/GetFa
 import { useEffect, useState } from "react";
 import { AddFavoritos } from "../../../domain/useCases/fav/AddFavorito";
 import { useUserLocalStorage } from "../../hooks/useUserLocalStorage";
+import {AddRecetaAFavoritosUseCase} from "../../../domain/useCases/fav/AddRecetaAFavorito";
 
 export const HomeViewModel = () => {
     const [favoritos, setFavoritos] = useState<FavoritosInterface[]>([]);
@@ -61,6 +62,33 @@ export const HomeViewModel = () => {
         await deleteUserUseCase();
     };
 
+    const addRecetaToUserFavorites = async (recetaId: number) => {
+        if (!user || !user.id) return;
+
+        try {
+            const response = await fetch(`http://172.24.192.1:8080/api/favoritos/usuario/${user.id}/receta/${recetaId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            // Verifica el código de estado para obtener más detalles
+            if (response.ok) {
+                // Actualiza los favoritos del usuario en el frontend
+                await loadFavoritos(user.id);
+            } else {
+                const errorText = await response.text(); // Captura el texto de error de la respuesta
+                setErrorMessage(`Failed to add recipe to favorites: ${response.status} - ${errorText}`);
+            }
+        } catch (error) {
+            setErrorMessage("An error occurred while adding the recipe to favorites");
+            console.error(error);
+        }
+    };
+
+
+
     return {
         deleteSession,
         favoritos,
@@ -68,7 +96,8 @@ export const HomeViewModel = () => {
         loadFavoritos,
         addFavorito,
         removeFavorito,
-        isFavorite
+        isFavorite,
+        addRecetaToUserFavorites // Nueva función exportada
     };
 };
 

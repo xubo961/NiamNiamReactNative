@@ -246,6 +246,15 @@ const styles = StyleSheet.create({
         padding: 5,
     },
 
+    favoriteButtonText: {
+        color: "white",
+        fontSize: 16,
+        marginLeft: 10,
+        fontWeight: "bold",
+    },
+
+
+
 });
 
 export default styles;
