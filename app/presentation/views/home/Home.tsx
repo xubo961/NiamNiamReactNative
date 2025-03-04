@@ -31,7 +31,7 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
     const [selectedRecipe, setSelectedRecipe] = useState<any>(null);
     const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
-    const { deleteSession, addFavorito, removeFavorito, isFavorite, addRecetaToUserFavorites } = ViewModel.HomeViewModel();
+    const { deleteSession, addFavorito, removeFavorito, isFavorite} = ViewModel.HomeViewModel();
 
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
@@ -301,20 +301,6 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                             <View style={styles.modalContainer}>
                                 <ScrollView>
                                     <Text style={styles.modalTitle}>{selectedRecipe?.strMeal}</Text>
-
-                                    {/* Botón para añadir la receta a favoritos */}
-                                    <TouchableOpacity
-                                        style={styles.favoriteButton}
-                                        onPress={() => addRecetaToUserFavorites(selectedRecipe?.idMeal)}
-                                    >
-                                        <MaterialIcons
-                                            name="favorite"
-                                            size={24}
-                                            color={AppColors.rojo}
-                                        />
-                                        <Text style={styles.favoriteButtonText}>Add to Favorites</Text>
-                                    </TouchableOpacity>
-
                                     <View style={styles.descriptionContainer}>
                                         <Text style={styles.descriptionTitle}>Description</Text>
                                         <Text style={styles.descriptionText}>
