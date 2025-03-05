@@ -3,6 +3,6 @@ import {FavRepositoryImpl} from "../../../data/repositories/FavRepository";
 
 const repository = new FavRepositoryImpl();
 
-export const AddFavoritos = async (favorito: FavoritosInterface) => {
-    return await repository.addFavorito(favorito);
+export const AddFavoritos = async (usuarioId: number, favorito: FavoritosInterface) => {
+    return await repository.addFavorito(usuarioId, favorito);
 };
