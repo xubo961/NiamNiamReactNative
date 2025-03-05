@@ -164,13 +164,24 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                 return newFavorites;
             });
         } else {
+            // Extraer ingredientes dinámicamente
+            let ingredientsList = [];
+            for (let i = 1; i <= 20; i++) {
+                const ingredient = recipe[`strIngredient${i}`];
+                const measure = recipe[`strMeasure${i}`];
+                if (ingredient && ingredient.trim() !== "") {
+                    ingredientsList.push(`${measure} ${ingredient}`.trim());
+                }
+            }
+
             const favorito = {
                 idReceta: recipe.idMeal,
                 nameReceta: recipe.strMeal,
-                ingredientsReceta: "", // Ajustar según la API
-                preparationReceta: "", // Ajustar según la API
+                ingredientsReceta: ingredientsList.join(", "), // Lista de ingredientes
+                preparationReceta: recipe.strInstructions, // Instrucciones de preparación
                 imageReceta: recipe.strMealThumb,
             };
+
             addFavorito(favorito);
             setFavorites((prev) => new Set(prev).add(recipe.idMeal));
         }

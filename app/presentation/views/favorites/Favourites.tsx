@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     Text,
@@ -6,17 +6,36 @@ import {
     TouchableOpacity,
     TextInput,
     Linking,
-    Dimensions
+    Dimensions,
+    FlatList,
+    ActivityIndicator
 } from "react-native";
 import styles from "./StylesFavorites";
 import { Divider, Menu, Provider } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
 import { PropsStackNavigation } from "../../interfaces/StackNav";
+import ViewModel from "../favorites/FavoritesViewModel";
+import Toast from 'react-native-toast-message';
+import { useUserLocalStorage } from "../../hooks/useUserLocalStorage";
+import { FavoritosInterface } from "../../../domain/entities/FavoritosReceta";
 
 const { width } = Dimensions.get("window");
 
 export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
+    const { user, getUserSession } = useUserLocalStorage();
+    const { favListRecetas, loadFavRecetas, showLoading, deleteReceta, deleteSession } = ViewModel.FavoritesViewModel();
+
     const [visible, setVisible] = useState(false);
+    const [loadError, setLoadError] = useState(false); // Nuevo estado para manejar errores de carga
+
+    useEffect(() => {
+        if (user?.id) {
+            loadFavRecetas(user.id)
+                .catch(() => setLoadError(true)); // Manejo de error en la carga
+        } else {
+            getUserSession();
+        }
+    }, [user]);
 
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
@@ -32,6 +51,25 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
             console.error("Error al intentar abrir la URL: ", err)
         );
     };
+
+    const renderFavItem = ({ item, index }: { item: FavoritosInterface, index: number }) => (
+        <View style={styles.favItemContainer}>
+            <View>
+                <Text style={styles.favItemTitle}>{item.nameReceta}</Text>
+                <Image source={{ uri: item.imageReceta }} style={styles.recipeImage} />
+            </View>
+            <TouchableOpacity
+                onPress={() => {
+                    if (user?.id) {
+                        deleteReceta(user.id, item.idReceta, index); // Pasamos el usuarioId correctamente
+                    }
+                }}
+                style={styles.deleteButton}
+            >
+                <Text style={styles.deleteButtonText}>Eliminar de favoritos</Text>
+            </TouchableOpacity>
+        </View>
+    );
 
     return (
         <Provider>
@@ -59,7 +97,7 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
                         <Divider />
                         <Menu.Item
                             onPress={() => {
-                                // deleteSession();
+                                deleteSession();
                                 navigation.navigate("WelcomeScreen");
                             }}
                             title="Logout"
@@ -83,6 +121,21 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
                         placeholderTextColor="#555"
                     />
                 </View>
+
+                {/* Mostrar lista de recetas favoritas o carga */}
+                {showLoading ? (
+                    <ActivityIndicator size="large" color="#0000ff" />
+                ) : loadError ? (
+                    <Text style={styles.errorText}>Hubo un error al cargar tus recetas favoritas.</Text> // Mensaje de error
+                ) : favListRecetas.length === 0 ? (
+                    <Text style={styles.noFavoritesText}>No tienes recetas favoritas.</Text>
+                ) : (
+                    <FlatList
+                        data={favListRecetas}
+                        renderItem={renderFavItem}
+                        keyExtractor={(item) => item.idReceta.toString()}
+                    />
+                )}
             </View>
         </Provider>
     );
