@@ -43,7 +43,6 @@ export const HomeViewModel = () => {
         }
     };
 
-
     const removeFavorito = async (recetaId: number) => {
         if (!user || !user.id) return;
         const response = await RemoveRecetaDeFavoritosUseCase(user.id, recetaId);
@@ -61,7 +60,6 @@ export const HomeViewModel = () => {
     const deleteSession = async () => {
         await deleteUserUseCase();
     };
-
 
     return {
         deleteSession,

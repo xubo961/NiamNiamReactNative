@@ -29,17 +29,6 @@ export class FavRepositoryImpl implements FavRepository{
         }
     }
 
-    async getFavoritoById(id: number): Promise<ApiDeliveryResponse> {
-        try {
-            const response = await ApiDelivery.get(`/favoritos/${id}`);
-            return Promise.resolve(response.data);
-        } catch (error) {
-            let e = error as AxiosError;
-            console.log("ERROR: " + JSON.stringify(e.response?.data));
-            return Promise.resolve(JSON.parse(JSON.stringify(e.response?.data)) as ApiDeliveryResponse);
-        }
-    }
-
     async getFavoritosByUsuario(usuarioId: number): Promise<ApiDeliveryResponse> {
         try {
             const response = await ApiDelivery.get(`/favoritos/usuario/${usuarioId}`);
