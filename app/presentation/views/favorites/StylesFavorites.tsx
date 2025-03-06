@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { AppColors } from "../../theme/AppTheme";
+import App from "../../../../App";
 
 const { width } = Dimensions.get("window");
 
@@ -27,7 +28,7 @@ export default StyleSheet.create({
     },
     welcome: {
         fontSize: 16,
-        color: "#333",
+        color: AppColors.text,
         textAlign: "center",
         paddingBottom: 25,
     },
@@ -54,13 +55,13 @@ export default StyleSheet.create({
         marginRight: 8,
     },
     menuContainer: {
-        // You can adjust margins or paddings here if needed
+        alignItems: "center",
     },
 
     favItemContainer: {
         padding: 15,
         marginVertical: 10,
-        backgroundColor: '#f9f9f9',
+        backgroundColor: AppColors.backgroundPopUp,
         borderRadius: 8,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -71,29 +72,31 @@ export default StyleSheet.create({
     favItemTitle: {
         fontSize: 18,
         fontWeight: 'bold',
+        color: AppColors.text,
     },
     favItemDescription: {
         fontSize: 14,
         color: '#555',
     },
     recipeImage: {
-        width: width - 40, // Makes sure the image fits nicely
+        width: width - 100, // Makes sure the image fits nicely
         height: 200, // Set height to be consistent for all images
-        borderRadius: 8,
+        borderRadius: 15,
         marginVertical: 10,
         resizeMode: "cover", // Ensures images scale properly
     },
     deleteButton: {
         marginTop: 10,
-        backgroundColor: '#FF6347',
+        backgroundColor: AppColors.rojo,
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 5,
-        elevation: 2, // Adds a subtle shadow for a 3D effect
+        elevation: 2,
     },
     deleteButtonText: {
         color: '#fff',
         textAlign: 'center',
+        fontWeight: 'bold'
     },
     noFavoritesText: {
         fontSize: 16,

@@ -15,6 +15,10 @@ export const FavoritesViewModel = () => {
                 setFavListRecetas(response.data);
                 console.log(response.data);
                 setShowLoading(false);
+                Toast.show({
+                    type: "success",
+                    text1: "Agregado a favoritos",
+                })
             })
             .catch((error) => {
                 console.log(error);

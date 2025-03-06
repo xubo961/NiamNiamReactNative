@@ -37,7 +37,7 @@ export const AdminTabNavigator = () => {
             <Tab.Screen name="FavouritesScreen"
                         options={{
                             title: 'Favourites',
-                            tabBarLabel: 'Favourites',
+                            tabBarLabel: 'Favorites',
                             tabBarIcon: ({color}) => (
                                 <Image
                                     source={require("../../../assets/star.png")}

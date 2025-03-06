@@ -54,14 +54,16 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
 
     const renderFavItem = ({ item, index }: { item: FavoritosInterface, index: number }) => (
         <View style={styles.favItemContainer}>
-            <View>
+            <View style={styles.menuContainer}>
                 <Text style={styles.favItemTitle}>{item.nameReceta}</Text>
                 <Image source={{ uri: item.imageReceta }} style={styles.recipeImage} />
+                {/*<Text>{item.ingredientsReceta}</Text>*/}
+                {/*<Text>{item.preparationReceta}</Text>*/}
             </View>
             <TouchableOpacity
                 onPress={() => {
                     if (user?.id) {
-                        deleteReceta(user.id, item.idReceta, index); // Pasamos el usuarioId correctamente
+                        deleteReceta(user.id, item.id, index);
                     }
                 }}
                 style={styles.deleteButton}
@@ -107,22 +109,6 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
 
                 <Text style={styles.welcome}>Welcome to your favorites</Text>
 
-                {/* BARRA DE BÚSQUEDA */}
-                <View style={styles.searchContainer}>
-                    <MaterialIcons
-                        name="search"
-                        size={24}
-                        color="black"
-                        style={styles.searchIcon}
-                    />
-                    <TextInput
-                        style={styles.searchInput}
-                        placeholder="Search..."
-                        placeholderTextColor="#555"
-                    />
-                </View>
-
-                {/* Mostrar lista de recetas favoritas o carga */}
                 {showLoading ? (
                     <ActivityIndicator size="large" color="#0000ff" />
                 ) : loadError ? (
