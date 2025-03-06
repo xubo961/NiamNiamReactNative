@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import {Dimensions, Image, Linking, ScrollView, Text, TextInput, TouchableOpacity, View, } from "react-native";
+import React, { useState, useEffect } from "react";
+import {Dimensions, Image, Linking, ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
 import styles from "./StylesAdd";
 import { Divider, Menu, Provider } from "react-native-paper";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
@@ -7,6 +7,7 @@ import { PropsStackNavigation } from "../../interfaces/StackNav";
 import { MultiSelect } from "react-native-element-dropdown";
 import * as ImagePicker from 'expo-image-picker';
 import ViewModel from "../add/AddViewModel";
+import { useUserLocalStorage } from "../../hooks/useUserLocalStorage"; // Importamos el hook para obtener el usuario
 
 const { width, height } = Dimensions.get('window');
 
@@ -35,10 +36,11 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
         description: "",
     });
 
+    const { user } = useUserLocalStorage(); // Obtenemos el usuario actual
+    const { deleteSession, addRecipeUseCase } = ViewModel.AddViewModel();
+
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
-
-    const { deleteSession } = ViewModel.AddViewModel();
 
     const openUrlBo = () => {
         Linking.openURL('https://github.com/xubo961/')
@@ -96,8 +98,26 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
         }));
     }
 
-    const saveProduct = () => {
-        console.log(state);
+    const saveProduct = async () => {
+        if (!user) {
+            console.log("No user found");
+            return;
+        }
+
+        const recipeData = {
+            idReceta: Date.now(), // Puedes generar un ID único aquí o usar uno desde la base de datos si ya lo tienes.
+            nameReceta: state.name,
+            ingredientsReceta: state.ingredients.join(", "), // Los ingredientes se unen como una cadena
+            preparationReceta: state.description,
+            imageReceta: state.image.length > 0 ? state.image[0] : "", // Si no hay imagen, se guarda una cadena vacía.
+        };
+
+        const response = await addRecipeUseCase(user.id, recipeData);
+        if (response) {
+            console.log("Recipe added successfully:", response);
+        } else {
+            console.error("Failed to add recipe.");
+        }
     }
 
     return (
