@@ -7,5 +7,11 @@ export const AppColors = {
     rojo: '#FC0000',
     grisClaro: '#E1DEDE',
     grisOscuro: '#C2C1C1',
-    backgroundPopUpConatiner: "#FFEBA9"
+    backgroundPopUpConatiner: "#FFEBA9",
+    amarilloConatiner: "#FFF081",
+}
+
+export const AppFonts = {
+    bold: "quicksand_bold",
+    light: "quicksand_light",
 }

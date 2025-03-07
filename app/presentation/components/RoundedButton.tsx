@@ -1,13 +1,13 @@
 import React from "react";
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {AppColors} from "../theme/AppTheme";
+import { StyleSheet, Text, TouchableOpacity, View, Dimensions } from "react-native";
+import { AppColors } from "../theme/AppTheme";
 
 interface Props {
     text: string,
     onPressFromInterface: () => void,
 }
 
-export const RoundedButton = ({text, onPressFromInterface}: Props) => {
+export const RoundedButton = ({ text, onPressFromInterface }: Props) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.buttonForm} onPress={onPressFromInterface}>
@@ -17,15 +17,17 @@ export const RoundedButton = ({text, onPressFromInterface}: Props) => {
     );
 }
 
+const windowWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
     container: {
-        width: '50%',
+        width: windowWidth * 0.5,
         alignSelf: 'center',
     },
     buttonForm: {
         backgroundColor: AppColors.rojo,
-        paddingVertical: 9,
-        paddingHorizontal: 30,
+        paddingVertical: windowWidth * 0.03,
+        paddingHorizontal: windowWidth * 0.1,
         borderRadius: 50,
         width: "100%",
         alignItems: "center",
@@ -33,6 +35,6 @@ const styles = StyleSheet.create({
     buttonFormText: {
         color: "#FFF",
         textAlign: "center",
-        fontSize: 17
+        fontSize: windowWidth * 0.04,
     }
 });

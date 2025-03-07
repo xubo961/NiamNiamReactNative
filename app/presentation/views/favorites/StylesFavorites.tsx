@@ -11,27 +11,32 @@ export default StyleSheet.create({
         paddingHorizontal: 20,
         paddingTop: 60,
     },
+
     header: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
         paddingBottom: 15,
     },
+
     logo: {
         resizeMode: "contain",
     },
+
     title: {
         fontWeight: "bold",
         color: AppColors.text,
         textAlign: "center",
-        fontSize: width * 0.06, // Responsive font size based on screen width
+        fontSize: width * 0.06,
     },
+
     welcome: {
         fontSize: 16,
         color: AppColors.text,
         textAlign: "center",
         paddingBottom: 25,
     },
+
     searchContainer: {
         flexDirection: "row",
         alignItems: "center",
@@ -46,45 +51,58 @@ export default StyleSheet.create({
         shadowRadius: 4,
         elevation: 3,
     },
+
     searchInput: {
         flex: 1,
         fontSize: 14,
         color: "#000",
     },
+
     searchIcon: {
         marginRight: 8,
     },
+
     menuContainer: {
         alignItems: "center",
     },
 
     favItemContainer: {
-        padding: 15,
-        marginVertical: 10,
+        alignSelf: "center",
+        width: width * 0.8,
         backgroundColor: AppColors.backgroundPopUp,
-        borderRadius: 8,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.5,
+        borderRadius: 20,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
         elevation: 5,
+        overflow: "hidden",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 10,
+        marginBottom: 25,
     },
+
     favItemTitle: {
         fontSize: 18,
         fontWeight: 'bold',
         color: AppColors.text,
+        textAlign: "center"
     },
+
     favItemDescription: {
         fontSize: 14,
         color: '#555',
     },
+
     recipeImage: {
-        width: width - 100, // Makes sure the image fits nicely
-        height: 200, // Set height to be consistent for all images
+        width: width - 150,
+        height: 200,
         borderRadius: 15,
         marginVertical: 10,
-        resizeMode: "cover", // Ensures images scale properly
+        resizeMode: "cover",
     },
+
     deleteButton: {
         marginTop: 10,
         backgroundColor: AppColors.rojo,
@@ -93,17 +111,20 @@ export default StyleSheet.create({
         borderRadius: 5,
         elevation: 2,
     },
+
     deleteButtonText: {
         color: '#fff',
         textAlign: 'center',
         fontWeight: 'bold'
     },
+
     noFavoritesText: {
         fontSize: 16,
         color: '#555',
         textAlign: 'center',
         marginTop: 20,
     },
+
     errorText: {
         fontSize: 16,
         color: AppColors.rojo,

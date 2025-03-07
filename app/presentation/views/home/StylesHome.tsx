@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { AppColors } from "../../theme/AppTheme";
+import {AppColors, AppFonts} from "../../theme/AppTheme";
 
 const { width, height } = Dimensions.get("window");
 
@@ -25,12 +25,14 @@ const styles = StyleSheet.create({
     title: {
         fontWeight: "bold",
         color: AppColors.text,
+        fontFamily: AppFonts.light,
     },
 
     welcomeText: {
         textAlign: "center",
         marginVertical: 15,
         fontWeight: "500",
+        fontFamily: AppFonts.light,
     },
 
     tabContainer: {

@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native";
-import {AppColors} from "../../theme/AppTheme";
+import {AppColors, AppFonts} from "../../theme/AppTheme";
 
 const styles = StyleSheet.create({
     container: {
@@ -44,15 +44,19 @@ const styles = StyleSheet.create({
     toggleText: {
         fontSize: 16,
         color: AppColors.textWhite,
+        fontFamily: AppFonts.light,
+
     },
     activeText: {
         color: AppColors.textWhite,
         fontWeight: "bold",
+        fontFamily: AppFonts.light,
     },
     loginText: {
         color: "#FFFFFF",
         fontWeight: "bold",
         fontSize: 16,
+        fontFamily: AppFonts.light,
     },
     forgotPassword: {
         marginTop: 15,

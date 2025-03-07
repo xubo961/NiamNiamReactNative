@@ -30,8 +30,6 @@ export const FavoritesViewModel = () => {
             });
     };
 
-    // Eliminar una receta de los favoritos de un usuario
-    // Eliminar una receta de los favoritos de un usuario
     const deleteReceta = async (usuarioId: number, recetaId: number, index: number) => {
         try {
             // Realizamos la solicitud DELETE a la API

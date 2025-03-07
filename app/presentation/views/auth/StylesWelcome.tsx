@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native";
-import {AppColors} from "../../theme/AppTheme";
+import {AppColors, AppFonts} from "../../theme/AppTheme";
 
 const styles = StyleSheet.create({
     container: {
@@ -19,16 +19,21 @@ const styles = StyleSheet.create({
     },
 
     button: {
-      marginTop: 40
+        marginTop: 40
     },
 
     textContainer: {
+        flexDirection: 'row',
         alignSelf: 'center',
         paddingTop: 19,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
+
 
     text: {
         fontSize: 16,
+        fontFamily: AppFonts.light,
     },
 
 })

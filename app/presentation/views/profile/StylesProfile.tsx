@@ -1,7 +1,7 @@
-import { StyleSheet, Dimensions } from "react-native";
-import {AppColors} from "../../theme/AppTheme";
+import {StyleSheet, Dimensions} from "react-native";
+import {AppColors, AppFonts} from "../../theme/AppTheme";
 
-const { width } = Dimensions.get("window");
+const {width} = Dimensions.get("window");
 
 export default StyleSheet.create({
     container: {
@@ -10,14 +10,15 @@ export default StyleSheet.create({
         paddingHorizontal: 16,
         paddingTop: 60,
     },
+
     header: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
         marginBottom: 16,
     },
+
     logo: {
-        // Las dimensiones dinámicas se establecen en el componente
         resizeMode: "contain",
     },
     title: {
@@ -25,79 +26,61 @@ export default StyleSheet.create({
         color: "#000",
         textAlign: "center",
     },
-    menuContainer: {
-        paddingStart: 20,
-    },
-    usernameContainer: {
-        backgroundColor: AppColors.backgroundPopUp,
-        borderRadius: 25,
-        padding: 16,
-        marginBottom: 8,
-        marginLeft: 90,
-        width: "50%",
-        alignItems: "center",
-    },
-    usernameText: {
-        fontSize: 16,
-        fontWeight: "bold",
-        color: "#000",
-        textAlign: "center",
-    },
-    descriptionContainer: {
-        backgroundColor: AppColors.backgroundPopUp,
-        borderRadius: 25,
-        padding: 16,
-        marginBottom: 16,
-        width: "90%",
-        marginLeft: 20,
-        marginTop: 8,
-    },
-    descriptionText: {
-        fontWeight: "bold",
-        fontSize: 16,
-        color: "#000",
-        textAlign: "center",
-    },
-    sectionTitle: {
-        fontSize: 16,
-        fontWeight: "bold",
-        marginBottom: 8,
-        marginTop: 8,
-        color: "#000",
-        backgroundColor: AppColors.backgroundPopUp,
-        width: "50%",
-        marginStart: 90,
-        textAlign: "center",
-        borderRadius: 35,
 
-    },
-    recipesContainer: {
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "space-between",
-        paddingBottom: 16,
-    },
-    recipeItem: {
-        width: "48%",
-        alignItems: "center",
-        marginBottom: 16,
-    },
-    recipeImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
+    textFoodRecipesContainer: {
+        alignSelf: "center",
+        backgroundColor: AppColors.amarilloConatiner,
+        borderRadius: 25,
+        padding: 16,
         marginBottom: 8,
+        width: "50%",
+        alignItems: "center",
+        fontFamily: AppFonts.light
     },
-    recipeTitle: {
-        fontSize: 14,
+
+    yourRecipesText: {
+        fontSize: 16,
+        fontWeight: "bold",
         color: "#000",
         textAlign: "center",
     },
-    footer: {
-        flexDirection: "row",
-        justifyContent: "space-around",
+
+    yourRecipesItemContainer: {
+        alignSelf: "center",
+        width: width * 0.8,
+        backgroundColor: AppColors.backgroundPopUp,
+        borderRadius: 20,
+        shadowColor: "#000",
+        shadowOffset: {width: 0, height: 4},
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+        elevation: 5,
+        overflow: "hidden",
         alignItems: "center",
-        marginTop: "auto",
-        marginBottom: 16,
+        justifyContent: "center",
+        padding: 10,
+        marginBottom: 25,
     },
+
+    menuContainer: {
+      alignItems: "center",
+    },
+
+    yourRecipesItemTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: AppColors.text,
+        textAlign: "center"
+    },
+
+    recipeImage: {
+        width: width - 150,
+        height: 200,
+        borderRadius: 15,
+        marginVertical: 10,
+        resizeMode: "cover",
+    },
+
+
+
 });

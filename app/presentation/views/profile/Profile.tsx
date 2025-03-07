@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {
     View,
     Text,
@@ -6,17 +6,32 @@ import {
     TouchableOpacity,
     ScrollView,
     TextInput,
-    Dimensions
+    Dimensions, Linking
 } from "react-native";
-import { Divider, Menu, Provider } from "react-native-paper";
-import { MaterialIcons } from "@expo/vector-icons";
-import { PropsStackNavigation } from "../../interfaces/StackNav";
+import {Divider, Menu, Provider} from "react-native-paper";
+import {MaterialIcons} from "@expo/vector-icons";
+import {PropsStackNavigation} from "../../interfaces/StackNav";
 import styles from "./StylesProfile";
+import ViewModel from "../profile/ProfileViewModel";
 
-const { width } = Dimensions.get("window");
+const {width} = Dimensions.get("window");
 
-export const ProfileScreen = ({ navigation }: PropsStackNavigation) => {
+export const ProfileScreen = ({navigation}: PropsStackNavigation) => {
+    const {deleteSession} = ViewModel.ProfileViewModel();
+
     const [visible, setVisible] = useState(false);
+
+    const openUrlBo = () => {
+        Linking.openURL("https://github.com/xubo961/").catch((err) =>
+            console.error("Error opening URL: ", err)
+        );
+    };
+
+    const openUrlSantiago = () => {
+        Linking.openURL("https://github.com/SNgomez27").catch((err) =>
+            console.error("Error opening URL: ", err)
+        );
+    }
 
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
@@ -28,9 +43,9 @@ export const ProfileScreen = ({ navigation }: PropsStackNavigation) => {
                 <View style={styles.header}>
                     <Image
                         source={require("../../../../assets/logoniamniam.png")}
-                        style={[styles.logo, { width: width * 0.15, height: width * 0.15 }]}
+                        style={[styles.logo, {width: width * 0.15, height: width * 0.15}]}
                     />
-                    <Text style={[styles.title, { fontSize: width * 0.06, flexShrink: 1 }]}>
+                    <Text style={[styles.title, {fontSize: width * 0.06, flexShrink: 1}]}>
                         Profile
                     </Text>
                     <Menu
@@ -38,46 +53,48 @@ export const ProfileScreen = ({ navigation }: PropsStackNavigation) => {
                         onDismiss={closeMenu}
                         anchor={
                             <TouchableOpacity onPress={openMenu}>
-                                <MaterialIcons name="more-vert" size={30} color="black" />
+                                <MaterialIcons name="more-vert" size={30} color="black"/>
                             </TouchableOpacity>
                         }
                     >
-                        <Menu.Item onPress={() => alert("Acerca de")} title="Acerca de" />
-                        <Menu.Item onPress={() => alert("Hola:D")} title="Hola:D" />
-                        <Menu.Item onPress={() => alert("jaja")} title="jaja" />
-                        <Divider />
+                        <Menu.Item onPress={openUrlBo} title="About Bo"/>
+                        <Menu.Item onPress={openUrlSantiago} title="About Santiago"/>
+                        <Divider/>
                         <Menu.Item
-                            onPress={() => navigation.navigate("WelcomeScreen")}
+                            onPress={() => {
+                                deleteSession();
+                                navigation.navigate("WelcomeScreen");
+                            }}
                             title="Logout"
                         />
                     </Menu>
                 </View>
 
-                {/* NOMBRE DE USUARIO */}
-                <View style={styles.usernameContainer}>
-                    <Text style={styles.usernameText}>Nombre de Usuario</Text>
+                <View style={styles.textFoodRecipesContainer}>
+                    <Text style={styles.yourRecipesText}>Your Food Recipes</Text>
                 </View>
 
-                {/* DESCRIPCIÓN */}
-                <View style={styles.descriptionContainer}>
-                    <Text style={styles.descriptionText}>Description</Text>
-                    <TextInput placeholder={"Description..."} />
-                </View>
-
-                {/* SECCIÓN: "Tus recetas" */}
-                <Text style={styles.sectionTitle}>Tus recetas</Text>
-
-                {/* GRID de recetas */}
-                <ScrollView contentContainerStyle={styles.recipesContainer}>
-                    <View style={styles.recipeItem}>
-                        <Image
-                            source={{ uri: "https://example.com/pollo-al-limon.jpg" }}
-                            style={styles.recipeImage}
-                        />
-                        <Text style={styles.recipeTitle}>Pollo al limón</Text>
+                <View style={styles.yourRecipesItemContainer}>
+                    <View style={styles.menuContainer}>
+                        <Text style={styles.yourRecipesItemTitle}>{item.nameReceta}</Text>
+                        <Image source={{uri: item.imageReceta}} style={styles.recipeImage}/>
+                        <Text>{item.ingredientsReceta}</Text>
+                        <Text>{item.preparationReceta}</Text>
                     </View>
-                </ScrollView>
+                    <TouchableOpacity
+                        onPress={() => {
+                            if (user?.id) {
+                                deleteReceta(user.id, item.id, index);
+                            }
+                        }}
+                        style={styles.deleteButton}
+                    >
+                        <Text style={styles.deleteButtonText}>Eliminar de favoritos</Text>
+                    </TouchableOpacity>
+                </View>
+
+
             </View>
         </Provider>
     );
-};
+}

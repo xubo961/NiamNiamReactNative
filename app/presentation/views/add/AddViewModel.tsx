@@ -15,7 +15,7 @@ export const AddViewModel = () => {
         ingredientsReceta: string
     }) => {
         try {
-            const response = await ApiDelivery.post(`/recetas/${usuarioId}`, recipe);
+            const response = await ApiDelivery.post(`/recetas/add/${usuarioId}`, recipe);
             return response.data;
         } catch (error) {
             console.error("Error adding recipe:", error);

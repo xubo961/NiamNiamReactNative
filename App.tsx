@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {WelcomeScreen} from "./app/presentation/views/auth/Welcome";
 import {RegisterScreen} from "./app/presentation/views/auth/Register";
 import {AdminTabNavigator} from "./app/presentation/navigation/AdminTabNavigator";
+import {useFonts} from "expo-font";
 
 
 export type RootStackParamsList = {

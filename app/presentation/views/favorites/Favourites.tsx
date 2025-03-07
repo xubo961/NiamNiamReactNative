@@ -26,12 +26,12 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
     const { favListRecetas, loadFavRecetas, showLoading, deleteReceta, deleteSession } = ViewModel.FavoritesViewModel();
 
     const [visible, setVisible] = useState(false);
-    const [loadError, setLoadError] = useState(false); // Nuevo estado para manejar errores de carga
+    const [loadError, setLoadError] = useState(false);
 
     useEffect(() => {
         if (user?.id) {
             loadFavRecetas(user.id)
-                .catch(() => setLoadError(true)); // Manejo de error en la carga
+                .catch(() => setLoadError(true));
         } else {
             getUserSession();
         }
@@ -76,7 +76,6 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
     return (
         <Provider>
             <View style={styles.container}>
-                {/* HEADER */}
                 <View style={styles.header}>
                     <Image
                         style={[styles.logo, { width: width * 0.15, height: width * 0.15 }]}
