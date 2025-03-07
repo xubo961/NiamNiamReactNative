@@ -1,6 +1,5 @@
 import { deleteUserUseCase } from "../../../domain/useCases/userLocal/DeleteUser";
 import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
-import {MisRecetasInterface} from "../../../domain/entities/MisRecetas";
 
 export const AddViewModel = () => {
     const deleteSession = async () => {

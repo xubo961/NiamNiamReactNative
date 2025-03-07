@@ -4,7 +4,6 @@ import {
     Text,
     Image,
     TouchableOpacity,
-    TextInput,
     Linking,
     Dimensions,
     FlatList,
@@ -35,6 +34,16 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
         } else {
             getUserSession();
         }
+
+        const interval = setInterval(() => {
+            if (user?.id) {
+                loadFavRecetas(user.id)
+                    .catch(() => setLoadError(true));
+            }
+        }, 1000);
+
+        // Limpia el intervalo cuando el componente se desmonte
+        return () => clearInterval(interval);
     }, [user]);
 
     const openMenu = () => setVisible(true);
@@ -52,7 +61,16 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
         );
     };
 
-    const renderFavItem = ({ item, index }: { item: FavoritosInterface, index: number }) => (
+    // Función para manejar la eliminación de recetas de favoritos y recargar la lista
+    const recargarPaginaEliminar = (usuarioId: number, recetaId: number, index: number) => {
+        deleteReceta(usuarioId, recetaId, index); // Ahora solo llamamos a la función para eliminar y actualizar el estado
+        Toast.show({
+            type: "success",
+            text1: "Receta eliminada de favoritos",
+        });
+    };
+
+    const mostrarFavItems = ({ item, index }: { item: FavoritosInterface, index: number }) => (
         <View style={styles.favItemContainer}>
             <View style={styles.menuContainer}>
                 <Text style={styles.favItemTitle}>{item.nameReceta}</Text>
@@ -63,7 +81,7 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
             <TouchableOpacity
                 onPress={() => {
                     if (user?.id) {
-                        deleteReceta(user.id, item.id, index);
+                        recargarPaginaEliminar(user.id, item.id, index); // Llamamos a la función para eliminar y recargar
                     }
                 }}
                 style={styles.deleteButton}
@@ -117,7 +135,7 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
                 ) : (
                     <FlatList
                         data={favListRecetas}
-                        renderItem={renderFavItem}
+                        renderItem={mostrarFavItems}
                         keyExtractor={(item) => item.idReceta.toString()}
                     />
                 )}

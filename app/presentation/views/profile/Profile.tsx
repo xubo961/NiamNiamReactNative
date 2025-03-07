@@ -1,45 +1,86 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
     View,
     Text,
     Image,
     TouchableOpacity,
-    ScrollView,
-    TextInput,
-    Dimensions, Linking
+    Linking,
+    Dimensions,
+    FlatList,
+    ActivityIndicator
 } from "react-native";
 import {Divider, Menu, Provider} from "react-native-paper";
 import {MaterialIcons} from "@expo/vector-icons";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
 import styles from "./StylesProfile";
-import ViewModel from "../profile/ProfileViewModel";
+import ProfileViewModel from "../profile/ProfileViewModel";
+import {useUserLocalStorage} from "../../hooks/useUserLocalStorage";
+import Toast from 'react-native-toast-message';
+import {MisRecetasInterface} from "../../../domain/entities/MisRecetas"; // Añadido para notificaciones
 
 const {width} = Dimensions.get("window");
 
 export const ProfileScreen = ({navigation}: PropsStackNavigation) => {
-    const {deleteSession} = ViewModel.ProfileViewModel();
+    const {user} = useUserLocalStorage();
+    const {recetasList, loadMisRecetas, showLoading, deleteReceta, deleteSession} = ProfileViewModel.ProfileViewModel();
 
     const [visible, setVisible] = useState(false);
+    const [loadError, setLoadError] = useState(false);
 
-    const openUrlBo = () => {
-        Linking.openURL("https://github.com/xubo961/").catch((err) =>
-            console.error("Error opening URL: ", err)
-        );
-    };
-
-    const openUrlSantiago = () => {
-        Linking.openURL("https://github.com/SNgomez27").catch((err) =>
-            console.error("Error opening URL: ", err)
-        );
-    }
+    useEffect(() => {
+        if (user?.id) {
+            loadMisRecetas(user.id)
+                .catch(() => setLoadError(true));
+        }
+    }, [user]);
 
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
 
+    const openUrlBo = () => {
+        Linking.openURL("https://github.com/xubo961/").catch(err =>
+            console.error("Error al intentar abrir la URL: ", err)
+        );
+    };
+
+    const openUrlSantiago = () => {
+        Linking.openURL("https://github.com/SNgomez27").catch(err =>
+            console.error("Error al intentar abrir la URL: ", err)
+        );
+    };
+
+    const recargarPaginaEliminar = (usuarioId: number, recetaId: number, index: number) => {
+        deleteReceta(usuarioId, recetaId, index); // Llamamos a la función para eliminar y actualizar el estado
+        Toast.show({
+            type: "success",
+            text1: "Receta eliminada de tu perfil",
+        });
+    };
+
+    const mostrarMisRecetasItem = ({item, index}: { item: MisRecetasInterface, index: number }) => (
+        <View style={styles.misRecetasItemContainer}>
+            <View style={styles.menuContainer}>
+                <Text style={styles.yourRecipesItemTitle}>{item.nameReceta}</Text>
+                <Image source={{uri: item.imageReceta}} style={styles.recipeImage}/>
+                <Text>{item.ingredientsReceta}</Text>
+                <Text>{item.preparationReceta}</Text>
+            </View>
+            <TouchableOpacity
+                onPress={() => {
+                    if (user?.id) {
+                        recargarPaginaEliminar(user.id, item.id, index); // Llamamos a la función para eliminar y recargar
+                    }
+                }}
+                style={styles.deleteButton}
+            >
+                <Text style={styles.deleteButtonText}>Eliminar receta</Text>
+            </TouchableOpacity>
+        </View>
+    );
+
     return (
         <Provider>
             <View style={styles.container}>
-                {/* HEADER */}
                 <View style={styles.header}>
                     <Image
                         source={require("../../../../assets/logoniamniam.png")}
@@ -70,31 +111,22 @@ export const ProfileScreen = ({navigation}: PropsStackNavigation) => {
                     </Menu>
                 </View>
 
-                <View style={styles.textFoodRecipesContainer}>
-                    <Text style={styles.yourRecipesText}>Your Food Recipes</Text>
-                </View>
+                <Text style={styles.yourRecipesText}>Your Food Recipes</Text>
 
-                <View style={styles.yourRecipesItemContainer}>
-                    <View style={styles.menuContainer}>
-                        <Text style={styles.yourRecipesItemTitle}>{item.nameReceta}</Text>
-                        <Image source={{uri: item.imageReceta}} style={styles.recipeImage}/>
-                        <Text>{item.ingredientsReceta}</Text>
-                        <Text>{item.preparationReceta}</Text>
-                    </View>
-                    <TouchableOpacity
-                        onPress={() => {
-                            if (user?.id) {
-                                deleteReceta(user.id, item.id, index);
-                            }
-                        }}
-                        style={styles.deleteButton}
-                    >
-                        <Text style={styles.deleteButtonText}>Eliminar de favoritos</Text>
-                    </TouchableOpacity>
-                </View>
-
-
+                {showLoading ? (
+                    <ActivityIndicator size="large" color="#0000ff"/>
+                ) : loadError ? (
+                    <Text style={styles.errorText}>Hubo un error al cargar tus recetas.</Text> // Mensaje de error
+                ) : recetasList.length === 0 ? (
+                    <Text style={styles.noMisRecetasText}>No tienes recetas guardadas.</Text>
+                ) : (
+                    <FlatList
+                        data={recetasList}
+                        renderItem={mostrarMisRecetasItem}
+                        keyExtractor={(item) => item.id.toString()}
+                    />
+                )}
             </View>
         </Provider>
     );
-}
+};

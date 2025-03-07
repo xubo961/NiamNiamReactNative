@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     },
 
     welcomeText: {
+        fontSize: 20,
         textAlign: "center",
         marginVertical: 15,
         fontWeight: "500",
@@ -243,7 +244,6 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: 10,
         right: 10,
-        backgroundColor: "rgba(255, 255, 255, 0.7)",
         borderRadius: 20,
         padding: 5,
     },

@@ -35,6 +35,7 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
         image: [] as string[],
         description: "",
     });
+    const [isSaving, setIsSaving] = useState(false); // Estado para manejar el proceso de guardado
 
     const { user } = useUserLocalStorage(); // Obtenemos el usuario actual
     const { deleteSession, addRecipeUseCase } = ViewModel.AddViewModel();
@@ -96,7 +97,7 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
             ...prevState,
             [name]: value
         }));
-    }
+    };
 
     const saveProduct = async () => {
         if (!user) {
@@ -104,21 +105,36 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
             return;
         }
 
+        setIsSaving(true); // Indica que se está guardando la receta
+
         const recipeData = {
-            idReceta: Date.now(), // Puedes generar un ID único aquí o usar uno desde la base de datos si ya lo tienes.
+            idReceta: Date.now(),
             nameReceta: state.name,
-            ingredientsReceta: state.ingredients.join(", "), // Los ingredientes se unen como una cadena
+            ingredientsReceta: state.ingredients.join(", "),
             preparationReceta: state.description,
-            imageReceta: state.image.length > 0 ? state.image[0] : "", // Si no hay imagen, se guarda una cadena vacía.
+            imageReceta: state.image.length > 0 ? state.image[0] : "",
         };
 
         const response = await addRecipeUseCase(user.id, recipeData);
+        setIsSaving(false); // Indica que el guardado ha terminado
+
         if (response) {
             console.log("Recipe added successfully:", response);
+
+            // Aquí puedes resetear el estado si deseas limpiar el formulario
+            setState({
+                name: "",
+                ingredients: [],
+                image: [],
+                description: "",
+            });
+
+            alert("Recipe saved successfully!");
         } else {
             console.error("Failed to add recipe.");
+            alert("Failed to save recipe.");
         }
-    }
+    };
 
     return (
         <Provider>
@@ -154,8 +170,12 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
                 <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}>
                     <View style={styles.card}>
                         <Text style={[styles.titleDivTetxt, { fontSize: width * 0.05 }]}>Name</Text>
-                        <TextInput style={styles.input} placeholder="Enter name"
-                                   onChangeText={(value) => handleChangeText(value, "name")} value={state.name} />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Enter name"
+                            onChangeText={(value) => handleChangeText(value, "name")}
+                            value={state.name}
+                        />
                     </View>
 
                     <View style={styles.card}>
@@ -208,12 +228,18 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
                     <View style={styles.card}>
                         <View style={styles.descriptionContainer}>
                             <Text style={styles.titleDivTetxt}>Description</Text>
-                            <TextInput style={styles.descriptionInput} placeholder="Type..." multiline
-                                       onChangeText={(value) => handleChangeText(value, "description")} value={state.description} />
+                            <TextInput
+                                style={styles.descriptionInput}
+                                placeholder="Type..."
+                                multiline
+                                onChangeText={(value) => handleChangeText(value, "description")}
+                                value={state.description}
+                            />
                         </View>
                     </View>
+
                     <TouchableOpacity style={styles.saveButton} onPress={saveProduct}>
-                        <Text style={styles.saveButtonText}>Save</Text>
+                        <Text style={styles.saveButtonText}>{isSaving ? "Saving..." : "Save"}</Text>
                     </TouchableOpacity>
                 </ScrollView>
             </View>

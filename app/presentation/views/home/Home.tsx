@@ -10,7 +10,7 @@ import {
     Modal,
     ScrollView,
     Linking,
-    Alert,
+    Alert, ToastAndroid,
 } from "react-native";
 import styles from "./StylesHome";
 import { Divider, Menu, Provider } from "react-native-paper";
@@ -155,7 +155,7 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
         }
     };
 
-    const handleFavoriteToggle = (recipe: any) => {
+    const botonFavorito = (recipe: any) => {
         if (isFavorite(recipe.idMeal)) {
             removeFavorito(recipe.idMeal);
             setFavorites((prev) => {
@@ -184,6 +184,7 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
 
             addFavorito(favorito);
             setFavorites((prev) => new Set(prev).add(recipe.idMeal));
+            ToastAndroid.show("Added to favorites", ToastAndroid.SHORT);
         }
     };
 
@@ -217,13 +218,8 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                         />
                     </Menu>
                 </View>
-                <Text
-                    style={[
-                        styles.welcomeText,
-                        { fontSize: width * 0.05, overflow: "hidden" },
-                    ]}
-                >
-                    Welcome, Name
+                <Text style={styles.welcomeText}>
+                    Recipes
                 </Text>
 
                 <ScrollView
@@ -286,7 +282,7 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                             <Text style={styles.cardTitle}>{item.strMeal}</Text>
                             <TouchableOpacity
                                 style={styles.favoriteButton}
-                                onPress={() => handleFavoriteToggle(item)}
+                                onPress={() => botonFavorito(item)}
                             >
                                 <MaterialIcons
                                     name={isFavorite(item.idMeal) ? "favorite" : "favorite-border"}

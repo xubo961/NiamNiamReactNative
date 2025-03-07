@@ -59,11 +59,28 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         padding: 10,
+        marginBottom: 40,
+    },
+
+    misRecetasItemContainer: {
+        alignSelf: "center",
+        width: width * 0.8,
+        backgroundColor: AppColors.backgroundPopUp,
+        borderRadius: 20,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+        elevation: 5,
+        overflow: "hidden",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 10,
         marginBottom: 25,
     },
 
     menuContainer: {
-      alignItems: "center",
+        alignItems: "center",
     },
 
     yourRecipesItemTitle: {
@@ -81,6 +98,42 @@ export default StyleSheet.create({
         resizeMode: "cover",
     },
 
+    noRecipesText: {
+        textAlign: "center",
+        color: "#000",
+        fontSize: 16,
+        fontWeight: "bold",
+        marginTop: 20,
+    },
+
+    deleteButton: {
+        marginTop: 10,
+        backgroundColor: AppColors.rojo,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderRadius: 5,
+        elevation: 2,
+    },
+
+    deleteButtonText: {
+        color: '#fff',
+        textAlign: 'center',
+        fontWeight: 'bold'
+    },
+
+    errorText: {
+        fontSize: 16,
+        color: AppColors.rojo,
+        textAlign: 'center',
+        marginTop: 20,
+    },
+
+    noMisRecetasText: {
+        fontSize: 16,
+        color: '#555',
+        textAlign: 'center',
+        marginTop: 20,
+    },
 
 
 });

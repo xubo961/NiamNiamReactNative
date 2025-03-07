@@ -75,6 +75,7 @@ export const FavoritesViewModel = () => {
         }
     };
 
+
     const deleteSession = async () => {
         await deleteUserUseCase();
     };
