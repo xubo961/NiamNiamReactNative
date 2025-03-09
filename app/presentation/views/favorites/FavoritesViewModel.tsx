@@ -8,7 +8,6 @@ export const FavoritesViewModel = () => {
     let [favListRecetas, setFavListRecetas] = useState<FavoritosInterface[]>([]);
     let [showLoading, setShowLoading] = useState(true);
 
-    // Cargar todas las recetas favoritas de un usuario específico
     const loadFavRecetas = async (usuarioId: number) => {
         ApiDelivery.get(`/favoritos/usuario/${usuarioId}`)
             .then((response) => {
@@ -32,21 +31,17 @@ export const FavoritesViewModel = () => {
 
     const deleteReceta = async (usuarioId: number, recetaId: number, index: number) => {
         try {
-            // Realizamos la solicitud DELETE a la API
             const response = await ApiDelivery.delete(`/favoritos/usuario/${usuarioId}/receta/${recetaId}`);
 
-            // Si la eliminación es exitosa, actualizamos la lista de recetas favoritas
             if (response.status === 204) {
-                // Eliminar la receta de la lista de favoritos en el estado
                 const updatedFavList = [...favListRecetas];
-                updatedFavList.splice(index, 1);  // Eliminamos la receta en la posición del índice
-                setFavListRecetas(updatedFavList); // Actualizamos el estado con la lista modificada
+                updatedFavList.splice(index, 1);
+                setFavListRecetas(updatedFavList);
                 Toast.show({
                     type: 'success',
                     text1: "Receta eliminada de tus favoritos.",
                 });
             } else {
-                // Si el servidor no devuelve el código de éxito 204
                 Toast.show({
                     type: 'error',
                     text1: "No se pudo eliminar la receta.",
@@ -56,16 +51,13 @@ export const FavoritesViewModel = () => {
         } catch (error: unknown) {
             console.error("Error al eliminar receta: ", error);
 
-            // Usar type guard para asegurarnos de que el error es del tipo 'AxiosError' (o cualquier otro tipo específico)
             if (error instanceof Error) {
-                // Ahora TypeScript sabe que 'error' es de tipo 'Error' y puedes acceder a 'message' y 'stack'
                 Toast.show({
                     type: 'error',
                     text1: "Hubo un error al eliminar la receta.",
-                    text2: error.message, // Mostrar el mensaje del error
+                    text2: error.message,
                 });
             } else {
-                // Si no es un error conocido, muestra un mensaje genérico
                 Toast.show({
                     type: 'error',
                     text1: "Error desconocido.",
@@ -86,7 +78,7 @@ export const FavoritesViewModel = () => {
         setFavListRecetas,
         loadFavRecetas,
         showLoading,
-        deleteReceta, // Se agrega la función de eliminación aquí
+        deleteReceta,
     };
 };
 

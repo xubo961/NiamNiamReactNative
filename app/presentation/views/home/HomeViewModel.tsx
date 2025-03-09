@@ -13,7 +13,7 @@ export const HomeViewModel = () => {
 
     useEffect(() => {
         const fetchUserAndFavoritos = async () => {
-            await getUserSession(); // Asegurar que el usuario está cargado
+            await getUserSession();
         };
         fetchUserAndFavoritos();
     }, []);

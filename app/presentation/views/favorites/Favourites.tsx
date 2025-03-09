@@ -42,7 +42,6 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
             }
         }, 1000);
 
-        // Limpia el intervalo cuando el componente se desmonte
         return () => clearInterval(interval);
     }, [user]);
 
@@ -61,9 +60,8 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
         );
     };
 
-    // Función para manejar la eliminación de recetas de favoritos y recargar la lista
     const recargarPaginaEliminar = (usuarioId: number, recetaId: number, index: number) => {
-        deleteReceta(usuarioId, recetaId, index); // Ahora solo llamamos a la función para eliminar y actualizar el estado
+        deleteReceta(usuarioId, recetaId, index);
         Toast.show({
             type: "success",
             text1: "Receta eliminada de favoritos",
@@ -81,7 +79,7 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
             <TouchableOpacity
                 onPress={() => {
                     if (user?.id) {
-                        recargarPaginaEliminar(user.id, item.id, index); // Llamamos a la función para eliminar y recargar
+                        recargarPaginaEliminar(user.id, item.id, index);
                     }
                 }}
                 style={styles.deleteButton}
@@ -129,7 +127,7 @@ export const FavouritesScreen = ({ navigation }: PropsStackNavigation) => {
                 {showLoading ? (
                     <ActivityIndicator size="large" color="#0000ff" />
                 ) : loadError ? (
-                    <Text style={styles.errorText}>Hubo un error al cargar tus recetas favoritas.</Text> // Mensaje de error
+                    <Text style={styles.errorText}>Hubo un error al cargar tus recetas favoritas.</Text>
                 ) : favListRecetas.length === 0 ? (
                     <Text style={styles.noFavoritesText}>No tienes recetas favoritas.</Text>
                 ) : (

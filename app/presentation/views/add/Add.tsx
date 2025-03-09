@@ -7,7 +7,7 @@ import { PropsStackNavigation } from "../../interfaces/StackNav";
 import { MultiSelect } from "react-native-element-dropdown";
 import * as ImagePicker from 'expo-image-picker';
 import ViewModel from "../add/AddViewModel";
-import { useUserLocalStorage } from "../../hooks/useUserLocalStorage"; // Importamos el hook para obtener el usuario
+import { useUserLocalStorage } from "../../hooks/useUserLocalStorage";
 
 const { width, height } = Dimensions.get('window');
 
@@ -35,9 +35,9 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
         image: [] as string[],
         description: "",
     });
-    const [isSaving, setIsSaving] = useState(false); // Estado para manejar el proceso de guardado
+    const [isSaving, setIsSaving] = useState(false);
 
-    const { user } = useUserLocalStorage(); // Obtenemos el usuario actual
+    const { user } = useUserLocalStorage();
     const { deleteSession, addRecipeUseCase } = ViewModel.AddViewModel();
 
     const openMenu = () => setVisible(true);
@@ -105,7 +105,7 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
             return;
         }
 
-        setIsSaving(true); // Indica que se está guardando la receta
+        setIsSaving(true);
 
         const recipeData = {
             idReceta: Date.now(),
@@ -116,12 +116,11 @@ export const AddScreen = ({ navigation }: PropsStackNavigation) => {
         };
 
         const response = await addRecipeUseCase(user.id, recipeData);
-        setIsSaving(false); // Indica que el guardado ha terminado
+        setIsSaving(false);
 
         if (response) {
             console.log("Recipe added successfully:", response);
 
-            // Aquí puedes resetear el estado si deseas limpiar el formulario
             setState({
                 name: "",
                 ingredients: [],

@@ -164,7 +164,6 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
                 return newFavorites;
             });
         } else {
-            // Extraer ingredientes dinámicamente
             let ingredientsList = [];
             for (let i = 1; i <= 20; i++) {
                 const ingredient = recipe[`strIngredient${i}`];

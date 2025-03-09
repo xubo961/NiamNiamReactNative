@@ -50,7 +50,7 @@ export const ProfileScreen = ({navigation}: PropsStackNavigation) => {
     };
 
     const recargarPaginaEliminar = (usuarioId: number, recetaId: number, index: number) => {
-        deleteReceta(usuarioId, recetaId, index); // Llamamos a la función para eliminar y actualizar el estado
+        deleteReceta(usuarioId, recetaId, index);
         Toast.show({
             type: "success",
             text1: "Receta eliminada de tu perfil",
@@ -68,7 +68,7 @@ export const ProfileScreen = ({navigation}: PropsStackNavigation) => {
             <TouchableOpacity
                 onPress={() => {
                     if (user?.id) {
-                        recargarPaginaEliminar(user.id, item.id, index); // Llamamos a la función para eliminar y recargar
+                        recargarPaginaEliminar(user.id, item.id, index);
                     }
                 }}
                 style={styles.deleteButton}
@@ -116,7 +116,7 @@ export const ProfileScreen = ({navigation}: PropsStackNavigation) => {
                 {showLoading ? (
                     <ActivityIndicator size="large" color="#0000ff"/>
                 ) : loadError ? (
-                    <Text style={styles.errorText}>Hubo un error al cargar tus recetas.</Text> // Mensaje de error
+                    <Text style={styles.errorText}>Hubo un error al cargar tus recetas.</Text>
                 ) : recetasList.length === 0 ? (
                     <Text style={styles.noMisRecetasText}>No tienes recetas guardadas.</Text>
                 ) : (
