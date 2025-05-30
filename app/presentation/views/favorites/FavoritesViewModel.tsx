@@ -3,10 +3,13 @@ import { ApiDelivery } from "../../../data/sources/remote/api/ApiDelivery";
 import { FavoritosInterface } from "../../../domain/entities/FavoritosReceta";
 import Toast from 'react-native-toast-message';
 import { deleteUserUseCase } from "../../../domain/useCases/userLocal/DeleteUser";
+import {ChangePasswordRequest} from "../../../domain/entities/User";
+import {AxiosError} from "axios";
 
 export const FavoritesViewModel = () => {
     let [favListRecetas, setFavListRecetas] = useState<FavoritosInterface[]>([]);
     let [showLoading, setShowLoading] = useState(true);
+    let [changingPassword, setChangingPassword] = useState(false);
 
     const loadFavRecetas = async (usuarioId: number) => {
         ApiDelivery.get(`/favoritos/usuario/${usuarioId}`)
@@ -67,6 +70,35 @@ export const FavoritesViewModel = () => {
         }
     };
 
+    const changePassword = async (request: ChangePasswordRequest) => {
+        try {
+            const response = await ApiDelivery.post("/users/change-password", request);
+
+            if (response.status === 200) {
+                Toast.show({
+                    type: "success",
+                    text1: "Password changed successfully.",
+                });
+            } else {
+                throw new Error(response.data?.message || `Error ${response.status}`);
+            }
+        } catch (error) {
+
+            if (error instanceof AxiosError && error.response?.status === 400) {
+                // Manejar mensaje del backend
+                const backendMessage = error.response.data?.message;
+
+                if (backendMessage === "Current password incorrect") {
+                    throw new Error("The current password is incorrect.");
+                } else {
+                    throw new Error(backendMessage || "There was an unexpected error.");
+                }
+            } else {
+                throw new Error("There was a problem with the request.");
+            }
+        }
+    };
+
 
     const deleteSession = async () => {
         await deleteUserUseCase();
@@ -79,6 +111,8 @@ export const FavoritesViewModel = () => {
         loadFavRecetas,
         showLoading,
         deleteReceta,
+        changePassword,
+        changingPassword,
     };
 };
 
