@@ -1,34 +1,18 @@
-import { deleteUserUseCase } from "../../../domain/useCases/userLocal/DeleteUser";
-import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
+import { useState } from 'react';
 import {ChangePasswordRequest} from "../../../domain/entities/User";
+import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
 import Toast from "react-native-toast-message";
 import {AxiosError} from "axios";
-import {useState} from "react";
 
-export const AddViewModel = () => {
-
+export const useCalendarViewModel = () => {
+    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Saturday'];
+    const meals = ['Breakfast', 'Lunch', 'Snack ', 'Dinner'];
     let [changingPassword, setChangingPassword] = useState(false);
 
-    const deleteSession = async () => {
-        await deleteUserUseCase();
-    };
+    const handleAddMeal = (meal: string, day: string) => {
 
-    const addRecipeUseCase = async (usuarioId: number | undefined, recipe: {
-        nameReceta: string;
-        preparationReceta: string;
-        imageReceta: string;
-        idReceta: number;
-        ingredientsReceta: string
-    }) => {
-        try {
-            const response = await ApiDelivery.post(`/recetas/add/${usuarioId}`, recipe);
-            return response.data;
-        } catch (error) {
-            console.error("Error adding recipe:", error);
-            return null;
-        }
+        console.log(`Add recipe for ${meal} of ${day}`);
     };
-
     const changePassword = async (request: ChangePasswordRequest) => {
         try {
             const response = await ApiDelivery.post("/users/change-password", request);
@@ -44,7 +28,6 @@ export const AddViewModel = () => {
         } catch (error) {
 
             if (error instanceof AxiosError && error.response?.status === 400) {
-
                 const backendMessage = error.response.data?.message;
 
                 if (backendMessage === "Current password incorrect") {
@@ -58,12 +41,12 @@ export const AddViewModel = () => {
         }
     };
 
+
     return {
-        deleteSession,
-        addRecipeUseCase,
+        days,
+        meals,
+        handleAddMeal,
         changePassword,
         changingPassword,
     };
 };
-
-export default { AddViewModel };

@@ -201,7 +201,51 @@ export default StyleSheet.create({
         color: "white",
         fontWeight: "bold",
         fontSize: 16
+    },
+
+    profileCard: {
+        marginVertical: 20,
+        padding: 10,
+        borderRadius: 20,
+        backgroundColor: "#fdf5cc",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 3,
+        alignItems: "center",
+        width: "90%",
+        alignSelf: "center",
+        position: "relative"
+    },
+    usernameBadge: {
+        position: "absolute",
+        top: -10,
+        backgroundColor: "#f7df56",
+        paddingHorizontal: 12,
+        paddingVertical: 4,
+        borderRadius: 15,
+        zIndex: 1
+    },
+    usernameText: {
+        fontWeight: "bold",
+        fontSize: 25,
+        color: "#333"
+    },
+    descriptionBox: {
+        marginTop: 20,
+        backgroundColor: "#fff6d6",
+        borderRadius: 16,
+        padding: 16,
+        width: "100%"
+    },
+    descriptionText: {
+        color: "#333",
+        fontSize: 20,
+        textAlign : "center",
+        fontWeight: "bold",
     }
+
 
 
 });

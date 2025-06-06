@@ -5,6 +5,7 @@ export interface UserInterface {
     email: string;
     password: string;
     repeatPassword?: string;
+    createdAt?: string;
 }
 
 export type UserLogininterface = Pick<UserInterface, "email" | "password">;

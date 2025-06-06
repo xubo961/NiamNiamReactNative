@@ -168,6 +168,16 @@ export const ProfileScreen = ({ navigation }: PropsStackNavigation) => {
                     </Menu>
                 </View>
 
+                <View style={styles.profileCard}>
+                    <View style={styles.usernameBadge}>
+                        <Text style={styles.usernameText}>{user?.firstName || "Usuario"}</Text>
+                    </View>
+                    <View style={styles.descriptionBox}>
+                        <Text style={styles.descriptionText}>Welcome to your profile!</Text>
+                    </View>
+                </View>
+
+
                 <Text style={styles.yourRecipesText}>Your Food Recipes</Text>
 
                 {showLoading ? (

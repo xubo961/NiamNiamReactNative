@@ -189,8 +189,8 @@ export const HomeScreen = ({ navigation }: PropsStackNavigation) => {
             const favorito = {
                 idReceta: recipe.idMeal,
                 nameReceta: recipe.strMeal,
-                ingredientsReceta: ingredientsList.join(", "), // Lista de ingredientes
-                preparationReceta: recipe.strInstructions, // Instrucciones de preparación
+                ingredientsReceta: ingredientsList.join(", "),
+                preparationReceta: recipe.strInstructions,
                 imageReceta: recipe.strMealThumb,
             };
 

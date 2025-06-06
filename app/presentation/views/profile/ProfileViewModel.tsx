@@ -91,7 +91,6 @@ export const ProfileViewModel = () => {
         } catch (error) {
 
             if (error instanceof AxiosError && error.response?.status === 400) {
-                // Manejar mensaje del backend
                 const backendMessage = error.response.data?.message;
 
                 if (backendMessage === "Current password incorrect") {

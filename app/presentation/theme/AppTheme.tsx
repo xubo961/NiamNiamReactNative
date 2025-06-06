@@ -9,6 +9,7 @@ export const AppColors = {
     grisOscuro: '#C2C1C1',
     backgroundPopUpConatiner: "#FFEBA9",
     amarilloConatiner: "#FFF081",
+    cleanButton: "#1398AF"
 }
 
 export const AppFonts = {

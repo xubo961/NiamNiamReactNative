@@ -5,6 +5,7 @@ import {FavouritesScreen} from "../views/favorites/Favourites";
 import {AddScreen} from "../views/add/Add";
 import {ProfileScreen} from "../views/profile/Profile";
 import {AppColors} from "../theme/AppTheme";
+import {Calendar} from "../views/calendar/Calendar";
 
 const Tab = createBottomTabNavigator();
 
@@ -60,6 +61,20 @@ export const AdminTabNavigator = () => {
                             )
                         }}
                         component={AddScreen}
+            />
+
+            <Tab.Screen name="CalendarScreen"
+                        options={{
+                            title: 'Calendar',
+                            tabBarLabel: 'Calendar',
+                            tabBarIcon: ({color}) => (
+                                <Image
+                                    source={require("../../../assets/calendario.png")}
+                                    style={{width: 25, height: 25, tintColor: color}}
+                                ></Image>
+                            )
+                        }}
+                        component={Calendar}
             />
 
             <Tab.Screen name="ProfileScreen"

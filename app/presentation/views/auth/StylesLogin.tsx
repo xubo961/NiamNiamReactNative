@@ -58,13 +58,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 16,
     },
-    forgotPassword: {
-        marginTop: 15,
-        color: "#777",
-        fontSize: 14,
-        textAlign: "center",
-        fontFamily: AppFonts.light,
-    },
+
     formInput: {
         width: '100%',
         gap: 20,
